@@ -10,6 +10,13 @@ app.engine("handlebars",handleBars.engine())
 app.set("view engine","handlebars")
 //END SETTINGS
 
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+)
+
+app.use(express.json())
 
 app.use(express.static('public'))
 
@@ -19,8 +26,5 @@ app.get('/', (req, res) => {
 
 app.use('/tarefas',rotasTarefas)
 
-app.get('/teste',(req,resp)=>{
-    resp.send("Começando com node na emiolo")
-})
 
 app.listen(2000,console.log("servidor rodando"))
