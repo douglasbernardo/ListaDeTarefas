@@ -1,10 +1,11 @@
 
 const Tarefa = require("../models/Tarefa")
 
-class tarefaController{
+class tarefaController
+{
 
     static mostraFormulario(req,resp){
-        resp.render("tarefas/formularioCadastro",{layout:false})
+        resp.render("tarefas/novaTarefa",{layout:false})
     }
 
     static adicionarTarefa(req,resp){
