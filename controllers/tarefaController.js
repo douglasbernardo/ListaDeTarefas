@@ -1,4 +1,5 @@
 
+const { json } = require("express/lib/response")
 const Tarefa = require("../models/Tarefa")
 
 class tarefaController
@@ -21,11 +22,11 @@ class tarefaController
         }
 
         if(!titulo){
-            console.log("Preencha o titulo corretamente")
+            alert("Preencha o titulo corretamente")
             return
         }
         if(!descricao){
-            console.log("Preencha a descrição corretamente")
+            alert("Preencha a descrição corretamente")
             return
         }
 
@@ -37,6 +38,14 @@ class tarefaController
     static async minhasTarefas(req,resp){
         const tarefas = await Tarefa.find().lean()
         resp.render('tarefas/tarefas',{tarefas})
+    }
+
+    static async excluirTarefa(req,resp){
+        const id = req.params.id
+        
+        await Tarefa.deleteOne({_id : id})
+
+        resp.redirect("/tarefas")
     }
 }
 
