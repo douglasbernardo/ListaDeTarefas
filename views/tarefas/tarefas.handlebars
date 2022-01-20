@@ -22,10 +22,12 @@
                         </div>
 
                        <form action="/tarefas/done/{{_id}}" method="post">
-                            <button type="submit" class="btn"><i  style="color: black;font-size:25px" class="far fa-check-circle"></i></button>
+                            <button type="submit" class="btn"><i style="color: black;font-size:25px" class="far fa-check-circle"></i></button>
                         </form>
 
-                        <button class="btn"><i style="color: black;font-size:25px" class="fas fa-edit"></i></button>
+                        <a href="/tarefas/editar/{{_id}}">
+                            <button class="btn"><i style="color: black;font-size:25px" class="fas fa-edit"></i></button>
+                        </a>
 
                         <form action="/tarefas/excluir/{{_id}}" method="post">
                            <button class="btn">
@@ -36,11 +38,5 @@
                 {{/each}}
             </ol>
         </div>
-        <script>
-            function done(titulo){
-                titulo.style.textDecoration = "line-through"
-                console.log(titulo)
-            }
-        </script>
     </body>
 </html>
