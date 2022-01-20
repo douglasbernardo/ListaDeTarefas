@@ -15,33 +15,17 @@
                 <button class="btn btn-outline-danger mb-2">Adicionar Tarefa</button>    
             </a>
             <ol class="list-group list-group-numbered">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">Estudos</div>
-                            Lembrar de estudar matematica e historia nesta sexta e sabado
-                    </div>
-                    <button class="button">Já feita</button>
-                    <button class="button">Editar</button>
-                    <button class="button">Excluir</button>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">Fazer meu alistamento</div>
-                            Fazer meu alistamento no quartel,entrar no site deles e se alistar
-                    </div>
-                   <button class="button">Já feita</button>
-                    <button class="button">Editar</button>
-                    <button class="button">Excluir</button>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">Cuidar o meu irmão</div>
-                            Cuidar do meu irmão para minha mãe 
-                    </div>
-                     <button class="button">Já feita</button>
-                    <button class="button">Editar</button>
-                    <button class="button">Excluir</button>
-                </li>
+                {{#each tarefas}}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{titulo}}</div>
+                                {{descricao}}
+                        </div>
+                        <button class="button">Já feita</button>
+                        <button class="button">Editar</button>
+                        <a href="{{_id}}"><button class="button">Excluir</button></a>
+                    </li>
+                {{/each}}
             </ol>
         </div>
     </body>
