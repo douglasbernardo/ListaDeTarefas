@@ -6,7 +6,12 @@ const rotasTarefas = require("./rotas/rotasTarefas")
 
 //HANDLEBARS SETTINGS
 const handleBars = require("express-handlebars")
-app.engine("handlebars",handleBars.engine())
+
+const hbs = handleBars.create({
+  partialsDir: ["views/partials/"],
+});
+
+app.engine("handlebars",hbs.engine)
 app.set("view engine","handlebars")
 //END SETTINGS
 
