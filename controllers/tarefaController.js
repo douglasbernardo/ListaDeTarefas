@@ -13,8 +13,9 @@ class tarefaController
         
         const titulo = req.body.titulo
         const descricao = req.body.descricao
+        const status = false //true=tarefa feita ----- false = tarefa não feita
 
-        const data = new Tarefa({titulo,descricao})
+        const data = new Tarefa({titulo,descricao,status})
         
         if(!titulo && !descricao){
             console.log("Preencha o titulo e a descrição")
@@ -37,6 +38,7 @@ class tarefaController
 
     static async minhasTarefas(req,resp){
         const tarefas = await Tarefa.find().lean()
+
         resp.render('tarefas/tarefas',{tarefas})
     }
 
@@ -45,6 +47,18 @@ class tarefaController
         
         await Tarefa.deleteOne({_id : id})
 
+        resp.redirect("/tarefas")
+    }
+
+    static async tarefaFeita(req,resp){
+        const id = req.params.id
+
+        const tarefa = await Tarefa.findByIdAndUpdate(id)
+
+        tarefa.status = true //tarefa foi feita
+
+        tarefa.save() //salvar alteração
+        
         resp.redirect("/tarefas")
     }
 }
