@@ -61,6 +61,31 @@ class tarefaController
         
         resp.redirect("/tarefas")
     }
+
+    static async formularioEdicao(req,resp){
+        const id = req.params.id
+
+        const tarefa = await Tarefa.findOne({_id:id}).lean()
+
+        resp.render("tarefas/editarTarefa",{tarefa:tarefa})
+    }
+
+    static async editar(req,resp){
+
+        const id = req.body.id
+        const titulo = req.body.titulo
+        const descricao = req.body.descricao
+
+        const tarefa = await Tarefa.findByIdAndUpdate(id)
+
+        tarefa.titulo = titulo
+
+        tarefa.descricao = descricao
+
+        tarefa.save()
+
+        resp.redirect("/tarefas")
+    }
 }
 
 module.exports = tarefaController
