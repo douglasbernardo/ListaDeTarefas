@@ -7,6 +7,7 @@ router.get("",tarefaController.minhasTarefas)
 router.get("/adicionarTarefa",tarefaController.mostraFormulario)
 router.post("/adicionarTarefa",tarefaController.adicionarTarefa)
 router.post("/excluir/:id",tarefaController.excluirTarefa)
+router.post("/done/:id",tarefaController.tarefaFeita)
 
 
 module.exports = router
