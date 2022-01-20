@@ -2,24 +2,25 @@
 <html lang="en">
     <head>
         {{>head}}
-        <title>Nova Tarefa</title>
+        <title>Editar Tarefa</title>
     </head>
     <body>
-        <h1>Adicionar Tarefa</h1>
+        <h1>Editar Tarefa</h1>
         <div class="container">
-            <form action="/tarefas/adicionarTarefa" method="post">
+            <form action="/tarefas/editar" method="post">
+                <input type="hidden" name="id" value={{tarefa._id}}>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Titulo da Tarefa:</label>
-                    <input type="text" name="titulo" class="form-control" placeholder="Adicione um titulo para sua tarefa">
+                    <input type="text" name="titulo" value="{{tarefa.titulo}}" class="form-control" >
                 </div>
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição da Tarefa:</label>
-                    <textarea type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras" rows="3"></textarea>
+                    <textarea type="text" class="form-control" name="descricao" rows="3">{{tarefa.descricao}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-outline-danger">
-                    Adicionar
+                    Editar
                 </button>
-                 <a href="/tarefas">
+                <a href="/tarefas">
                     <button type="button" class="btn btn-outline-danger">Voltar</button>
                 </a>
             </form>
