@@ -1,5 +1,4 @@
 
-const { json } = require("express/lib/response")
 const Tarefa = require("../models/Tarefa")
 
 class tarefaController
@@ -18,18 +17,19 @@ class tarefaController
         const data = new Tarefa({titulo,descricao,status})
         
         if(!titulo && !descricao){
-            console.log("Preencha o titulo e a descrição")
+            const mensagem = await req.flash("danger","Preecha os dados corretamente")
+            //resp.redirect("tarefas/novaTarefa",{msgs})
+            console.log(mensagem)
             return
         }
 
-        if(!titulo){
-            alert("Preencha o titulo corretamente")
-            return
-        }
-        if(!descricao){
-            alert("Preencha a descrição corretamente")
-            return
-        }
+        // if(!titulo){
+        //    console.log("")
+        // }
+        // if(!descricao){
+        //     const msgs = await req.consumeFlash("info")
+        //     resp.redirect("tarefas/novaTarefa",{msgs})
+        // }
 
         await data.save()
 
