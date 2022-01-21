@@ -7,6 +7,9 @@
     <body>
         <h1>Adicionar Tarefa</h1>
         <div class="container">
+            <div class="bg-danger">
+                <p style="text-align: center;">{{mensagem}}</p>
+            </div>
             <form action="/tarefas/adicionarTarefa" method="post">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Titulo da Tarefa:</label>
