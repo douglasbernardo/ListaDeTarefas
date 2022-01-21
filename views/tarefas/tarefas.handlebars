@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {{>head}}
+        <title>Minhas Tarefas</title>
+    </head>
+    <body>
+        <h1>Minhas Tarefas</h1>
+        <div class="container">
+            <a href="/tarefas/adicionarTarefa">
+                <button class="btn btn-outline-danger mb-2">Adicionar Tarefa</button>    
+            </a>
+            <ol class="list-group list-group-numbered">
+                {{#each tarefas}}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{titulo}}</div>
+                            {{#if status}}
+                                <div class="fw-bold"><i style="color: red;font-size:30px" class="fas fa-check"></i></div>
+                            {{/if}}
+                                {{descricao}}
+                        </div>
+
+                       <form action="/tarefas/done/{{_id}}" method="post">
+                            <button type="submit" class="btn"><i style="color: black;font-size:25px" class="far fa-check-circle"></i></button>
+                        </form>
+
+                        <a href="/tarefas/editar/{{_id}}">
+                            <button class="btn"><i style="color: black;font-size:25px" class="fas fa-edit"></i></button>
+                        </a>
+
+                        <form action="/tarefas/excluir/{{_id}}" method="post">
+                           <button class="btn">
+                               <i style="color: black;font-size:25px" class="fas fa-trash-alt"></i>
+                           </button>
+                        </form>
+                    </li>
+                {{/each}}
+            </ol>
+        </div>
+    </body>
+</html>
