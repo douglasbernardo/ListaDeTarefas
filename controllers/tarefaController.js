@@ -17,19 +17,30 @@ class tarefaController
         const data = new Tarefa({titulo,descricao,status})
         
         if(!titulo && !descricao){
-            const mensagem = await req.flash("danger","Preecha os dados corretamente")
-            //resp.redirect("tarefas/novaTarefa",{msgs})
-            console.log(mensagem)
-            return
+            const message = req.session.message = {
+                type: 'danger',
+                intro: 'Campos vazios! ',
+                message: 'Preencha os campos corretamente.'
+            }
+            resp.render("tarefas/novaTarefa",{message})
         }
 
-        // if(!titulo){
-        //    console.log("")
-        // }
-        // if(!descricao){
-        //     const msgs = await req.consumeFlash("info")
-        //     resp.redirect("tarefas/novaTarefa",{msgs})
-        // }
+         if(!titulo){
+            const message = req.session.message = {
+                type: 'danger',
+                intro: 'Campos vazios! ',
+                message: 'O titulo é obrigatorio.'
+            }
+            resp.render("tarefas/novaTarefa",{message})
+        }
+        if(!descricao){
+            const message = req.session.message = {
+                type: 'danger',
+                intro: 'Campos vazios! ',
+                message: 'Preencha a descrição corretamente.'
+            }
+            resp.render("tarefas/novaTarefa",{message})
+        }
 
         await data.save()
 
