@@ -7,9 +7,9 @@
     <body>
         <h1>Adicionar Tarefa</h1>
         <div class="container">
-            {{#if message}}
-                <div class="bg-{{message.type}}">
-                    <p style="text-align: center;">{{message.message}}</p>
+            {{#if messages.error}}
+                <div class="alert alert-danger" role="alert">
+                    <p style="text-align: center;">{{messages.error}}</p>
                 </div>
             {{/if}}
             <form action="/tarefas/adicionarTarefa" method="post">
