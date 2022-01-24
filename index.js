@@ -23,7 +23,6 @@ app.use(express.json())
 app.use(express.static('public'))
 
 const rotasTarefas = require("./rotas/rotasTarefas")
-const req = require('express/lib/request')
 //FLASHMESSAGE SETTINGS
 app.use(session({secret:'1234'}))
 
