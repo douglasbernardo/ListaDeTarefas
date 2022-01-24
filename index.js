@@ -3,11 +3,8 @@ const app = express()
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const bodyParser = require("body-parser")
+const flash = require("express-flash")
 const conn = require("./db/connection")
-
-app.use(bodyParser.json())
-app.use(cookieParser('secret'))
-app.use(session({cookie: {maxAge: null}}))
 
 
 //HANDLEBARS SETTINGS
@@ -21,36 +18,19 @@ app.engine("handlebars",hbs.engine)
 app.set("view engine","handlebars")
 //END SETTINGS
 
-
-//FLASH MESSAGES SETTINGS
-app.use((req, res, next)=>{
-  res.locals.message = req.session.message
-  delete req.session.message
-  next()
-})
-
-
-app.use(
-  express.urlencoded({
-    extended: true,
-  }),
-)
+app.use(express.urlencoded({extended: true,}),)
 
 app.use(express.json())
 
 app.use(express.static('public'))
 
 const rotasTarefas = require("./rotas/rotasTarefas")
+
+//FLASHMESSAGE SETTINGS
+app.use(session({ secret: '12345', cookie: { maxAge: null }}))
+
+app.use(flash())
 app.use('/tarefas',rotasTarefas)
 
 
-// app.get("/teste",(req,resp)=>{
-//   req.session.message = {
-//     type: 'danger',
-//     intro: 'Campos vazios! ',
-//     message: 'Preencha os campos corretamente.' 
-//   } 
-
-//   console.log(req.session.message.message)
-// })
 app.listen(2000,console.log("servidor rodando"))
