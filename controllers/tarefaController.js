@@ -13,36 +13,36 @@ class tarefaController
         const titulo = req.body.titulo
         const descricao = req.body.descricao
         const status = false //true=tarefa feita ----- false = tarefa não feita
-
-        const data = new Tarefa({titulo,descricao,status})
         
         if(!titulo && !descricao){
-            const message = req.session.message = {
-                type: 'danger',
-                intro: 'Campos vazios! ',
-                message: 'Preencha os campos corretamente.'
-            }
-            resp.render("tarefas/novaTarefa",{message})
+            const tipo = "error"
+            req.flash(tipo,'Preencha os dados corretamente')
+
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
         }
 
          if(!titulo){
-            const message = req.session.message = {
-                type: 'danger',
-                intro: 'Campos vazios! ',
-                message: 'O titulo é obrigatorio.'
-            }
-            resp.render("tarefas/novaTarefa",{message})
+            const tipo = "error"
+            req.flash(tipo,'Preecha o titulo')
+
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
         }
         if(!descricao){
-            const message = req.session.message = {
-                type: 'danger',
-                intro: 'Campos vazios! ',
-                message: 'Preencha a descrição corretamente.'
-            }
-            resp.render("tarefas/novaTarefa",{message})
+            const tipo = "error"
+            req.flash(tipo,'Preencha a descrição')
+
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
         }
 
+        const data = new Tarefa({titulo,descricao,status})
+
         await data.save()
+
+        const tipo = "success"
+        req.flash(tipo,`Tarefa: ${titulo}, foi adicionada com sucesso`)
 
         resp.redirect('/tarefas')
     }
@@ -86,6 +86,19 @@ class tarefaController
         const id = req.body.id
         const titulo = req.body.titulo
         const descricao = req.body.descricao
+
+        if(!titulo){
+            const tipo = "error"
+            req.flash(tipo,'Preecha o titulo')
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
+        }
+        if(!descricao){
+            const tipo = "error"
+            req.flash(tipo,'Preecha a descrição')
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
+        }
 
         const tarefa = await Tarefa.findByIdAndUpdate(id)
 
