@@ -5,21 +5,33 @@
     <title>Document</title>
 </head>
 <body>
-     <form action="/tarefas/adicionarTarefa" method="post">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Titulo da Tarefa:</label>
-                    <input type="text" name="titulo" class="form-control" placeholder="Adicione um titulo para sua tarefa">
-                </div>
-                <div class="mb-3">
-                    <label for="descricao" class="form-label">Descrição da Tarefa:</label>
-                    <textarea type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-outline-danger">
-                    Adicionar
-                </button>
-                 <a href="/tarefas">
-                    <button type="button" class="btn btn-outline-danger">Voltar</button>
-                </a>
-            </form>
+
+<h1>Cadastro usuario</h1>
+    <div class="container">
+        <form action="/tarefas/adicionarTarefa" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nome:</label>
+                <input type="text" name="titulo" class="form-control" placeholder="Adicione um titulo para sua tarefa">
+            </div>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Nome de Usuario:</label>
+                <textarea type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras">
+            </div>
+             <div class="mb-3">
+                <label for="descricao" class="form-label">Senha:</label>
+                <input type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras">
+            </div>
+              <div class="mb-3">
+                <label for="descricao" class="form-label">Confirmação de senha:</label>
+                <textarea type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras">
+            </div>
+            <button type="submit" class="btn btn-outline-danger">
+                Adicionar
+            </button>
+                <a href="/tarefas">
+                <button type="button" class="btn btn-outline-danger">Voltar</button>
+            </a>
+        </form>
+    </div>
 </body>
 </html>
