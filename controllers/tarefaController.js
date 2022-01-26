@@ -15,16 +15,14 @@ class tarefaController
         const status = false //true=tarefa feita ----- false = tarefa não feita
         
         if(!titulo && !descricao){
-            const tipo = "error"
-            req.flash(tipo,'Preencha os dados corretamente')
+            req.flash("error",'Preencha os dados corretamente')
 
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
 
          if(!titulo){
-            const tipo = "error"
-            req.flash(tipo,'Preecha o titulo')
+            req.flash("error",'Preecha o titulo')
 
             resp.redirect("/tarefas/adicionarTarefa")
             return
@@ -41,8 +39,7 @@ class tarefaController
 
         await data.save()
 
-        const tipo = "success"
-        req.flash(tipo,`Tarefa: ${titulo}, foi adicionada com sucesso`)
+        req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
 
         resp.redirect('/tarefas')
     }
@@ -88,14 +85,12 @@ class tarefaController
         const descricao = req.body.descricao
 
         if(!titulo){
-            const tipo = "error"
-            req.flash(tipo,'Preecha o titulo')
+            req.flash("error",'Preecha o titulo')
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
         if(!descricao){
-            const tipo = "error"
-            req.flash(tipo,'Preecha a descrição')
+            req.flash("error",'Preecha a descrição')
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
