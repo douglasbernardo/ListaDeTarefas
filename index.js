@@ -23,11 +23,22 @@ app.use(express.json())
 app.use(express.static('public'))
 
 const rotasTarefas = require("./rotas/rotasTarefas")
+const rotasUsuarios = require("./rotas/rotasUsuarios")
+
+
 //FLASHMESSAGE SETTINGS
-app.use(session({secret:'1234'}))
+app.use(
+  session({
+    secret:'1234',
+    resave:false,
+    saveUninitialized:true
+  })
+)
 
 app.use(flash())
 app.use('/tarefas',rotasTarefas)
+
+app.use('/usuarios',rotasUsuarios)
 
 
 app.listen(2000,console.log("servidor rodando"))
