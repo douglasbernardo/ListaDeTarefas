@@ -1,5 +1,4 @@
 
-const { json } = require("express/lib/response")
 const Tarefa = require("../models/Tarefa")
 
 class tarefaController
@@ -14,24 +13,33 @@ class tarefaController
         const titulo = req.body.titulo
         const descricao = req.body.descricao
         const status = false //true=tarefa feita ----- false = tarefa não feita
-
-        const data = new Tarefa({titulo,descricao,status})
         
         if(!titulo && !descricao){
-            console.log("Preencha o titulo e a descrição")
+            req.flash("error",'Preencha os dados corretamente')
+
+            resp.redirect("/tarefas/adicionarTarefa")
             return
         }
 
-        if(!titulo){
-            alert("Preencha o titulo corretamente")
+         if(!titulo){
+            req.flash("error",'Preecha o titulo')
+
+            resp.redirect("/tarefas/adicionarTarefa")
             return
         }
         if(!descricao){
-            alert("Preencha a descrição corretamente")
+            const tipo = "error"
+            req.flash(tipo,'Preencha a descrição')
+
+            resp.redirect("/tarefas/adicionarTarefa")
             return
         }
 
+        const data = new Tarefa({titulo,descricao,status})
+
         await data.save()
+
+        req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
 
         resp.redirect('/tarefas')
     }
@@ -75,6 +83,17 @@ class tarefaController
         const id = req.body.id
         const titulo = req.body.titulo
         const descricao = req.body.descricao
+
+        if(!titulo){
+            req.flash("error",'Preecha o titulo')
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
+        }
+        if(!descricao){
+            req.flash("error",'Preecha a descrição')
+            resp.redirect("/tarefas/adicionarTarefa")
+            return
+        }
 
         const tarefa = await Tarefa.findByIdAndUpdate(id)
 
