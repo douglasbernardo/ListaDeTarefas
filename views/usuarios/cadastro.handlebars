@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    {{>head}}
-    <title>Document</title>
-</head>
-<body>
-
-<h1>Cadastro usuario</h1>
-    <div class="container">
-        <form action="/tarefas/adicionarTarefa" method="post">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nome:</label>
-                <input type="text" name="titulo" class="form-control" placeholder="Adicione um titulo para sua tarefa">
-            </div>
-            <div class="mb-3">
-                <label for="descricao" class="form-label">Nome de Usuario:</label>
-                <textarea type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras">
-            </div>
-             <div class="mb-3">
-                <label for="descricao" class="form-label">Senha:</label>
-                <input type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras">
-            </div>
-              <div class="mb-3">
-                <label for="descricao" class="form-label">Confirmação de senha:</label>
-                <textarea type="text" class="form-control" name="descricao" placeholder="Descreve sua tarefa com algumas palavras">
-            </div>
-            <button type="submit" class="btn btn-outline-danger">
-                Adicionar
-            </button>
-                <a href="/tarefas">
-                <button type="button" class="btn btn-outline-danger">Voltar</button>
-            </a>
-        </form>
-    </div>
-</body>
+    <head>
+        {{>head}}
+        <link rel="stylesheet" href="/css/usuarios.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Cadastro De Usuário</h1>
+        <div class="container w-25">
+            {{#if messages.error}}
+                <div class="alert alert-danger">
+                    <p style="text-align: center;">{{messages.error}}</p>
+                </div>
+            {{/if}}
+            <form action="/usuarios/cadastro" method="post">
+                <div class="mb-3">
+                    <label for="Nome" class="form-label">Nome:</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Seu nome">
+                </div>
+                <div class="mb-3">
+                    <label for="Email" class="form-label">E-mail:</label>
+                    <input type="email" class="form-control" name="email" placeholder="Seu E-mail">
+                </div>
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha:</label>
+                    <input type="password" class="form-control" name="senha" placeholder="Coloque um senha segura">
+                </div>
+                <div class="mb-3">
+                    <label for="confirmarSenha" class="form-label">Confirmação de senha:</label>
+                    <input type="password" class="form-control" name="confirmacaoSenha" placeholder="Confirme sua senha">
+                </div>
+                <button type="submit" class="btn btn-outline-primary">
+                    Adicionar
+                </button>
+                    <a href="/usuarios/cadastro">
+                    <button type="button" class="btn btn-outline-primary">Voltar</button>
+                </a>
+            </form>
+        </div>
+    </body>
 </html>
