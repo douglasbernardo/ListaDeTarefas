@@ -10,6 +10,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [CSS](https://www.w3schools.com/css/)
 - [BOOTSTRAP](https://bootstrap/)
 - [NPM](https://www.npmjs.com/)
-- [JAVASCRIPT](https://www.javascript.com/)
-- [NODE.JS](https://www.javascript.com/)
+- [NODE .JS](https://nodejs.org/en/)
 - [EXPRESS](https://api.jquery.com/jquery.ajax/)
