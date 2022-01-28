@@ -1,9 +1,10 @@
 module.exports = {
-    async validarUsuario(req,resp,nome,email,senha,confirmarSenha){
+    validarUsuario(req,resp,nome,email,senha,confirmarSenha){
         
         if(!nome && !email && !senha && !confirmarSenha){
             req.flash('error',"Os dados são obrigatórios")
             resp.redirect("/usuarios/cadastro")
+            return
         }
         if(!nome){
             req.flash('error',"O nome é obrigatório")
@@ -11,7 +12,7 @@ module.exports = {
             return
         }
         if(!email){
-            req.flash('error',"O E-mail é obrigatório")
+            req.flash('error',"O e-mail é obrigatório")
             resp.redirect("/usuarios/cadastro")
             return
         }
@@ -26,7 +27,7 @@ module.exports = {
             return
         }
 
-        if(senha != confirmarSenha){
+        if(senha !== confirmarSenha){
             req.flash('error',"As senhas não são iguais")
             resp.redirect("/usuarios/cadastro")
             return
@@ -44,5 +45,7 @@ module.exports = {
             req.flash('error',"E-mail não pode ser vazio")
             resp.redirect("/usuarios/cadastro")
         }
+
+        return true
     }
 }
