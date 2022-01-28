@@ -18,10 +18,19 @@ class usuarioController
         if(!validarUsuario(req,resp,nome,email,senha,confirmarSenha)){
             console.log("Alguma coisa de errado aconteceu!")
         }
-        
-        console.log("Tudo ocorreu como deveria.")
 
-       console.log(bcrypt.hash(senha))
+        //fazer um hash da senha
+        const senhaHash = bcrypt.hashSync(senha,10)
+        
+        const usuario = new Usuario({
+            nome:nome,
+            email:email,
+            senha:senhaHash
+        })
+
+        await usuario.save()
+
+        resp.redirect("/tarefas")
     }
 }
 
