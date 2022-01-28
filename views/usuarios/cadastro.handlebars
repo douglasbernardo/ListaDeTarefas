@@ -10,7 +10,7 @@
         <div class="container w-25">
             {{#if messages.error}}
                 <div class="alert alert-danger">
-                    <p style="text-align: center;">{{messages.error}}</p>
+                     <p class="m-0 text-center">{{messages.error}}.</p>
                 </div>
             {{/if}}
             <form action="/usuarios/cadastro" method="post">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="confirmarSenha" class="form-label">Confirmação de senha:</label>
-                    <input type="password" class="form-control" name="confirmacaoSenha" placeholder="Confirme sua senha">
+                    <input type="password" class="form-control" name="confirmarSenha" placeholder="Confirme sua senha">
                 </div>
                 <button type="submit" class="btn btn-outline-primary">
                     Adicionar
