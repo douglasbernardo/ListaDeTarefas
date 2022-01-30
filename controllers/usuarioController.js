@@ -75,10 +75,17 @@ class usuarioController
 
         req.session.usuarioId = usuario.id
 
-        req.flash("success",`Usuario ID: ${usuario.id} Logado com sucesso`)
+        req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
 
         req.session.save(()=>{
             resp.redirect("/tarefas")
+        })
+    }
+
+    static logout(req,resp){
+        req.flash("success","Você saiu da sua conta")
+        req.session.destroy(()=>{
+            resp.redirect("/usuarios/login")
         })
     }
 }
