@@ -6,7 +6,7 @@ const tarefaController = require("../controllers/tarefaController")
 const checarUsuario = require("../helpers/checarUsuario").usuarioAuth
 
 router.get("",checarUsuario,tarefaController.minhasTarefas)
-router.get("/adicionarTarefa",tarefaController.mostraFormulario)
+router.get("/adicionarTarefa",checarUsuario,tarefaController.mostraFormulario)
 router.post("/adicionarTarefa",checarUsuario,tarefaController.adicionarTarefa)
 router.post("/excluir/:id",checarUsuario,tarefaController.excluirTarefa)
 router.get("/editar/:id",checarUsuario,tarefaController.formularioEdicao)
