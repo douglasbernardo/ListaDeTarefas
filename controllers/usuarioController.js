@@ -83,7 +83,6 @@ class usuarioController
     }
 
     static logout(req,resp){
-        req.flash("success","Você saiu da sua conta")
         req.session.destroy(()=>{
             resp.redirect("/usuarios/login")
         })
