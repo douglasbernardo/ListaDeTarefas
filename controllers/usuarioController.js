@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt")
 
 class usuarioController
 {
-
     static formularioCadastro(req,resp)
     {
         resp.render("usuarios/cadastro",{layout:false})
@@ -24,9 +23,9 @@ class usuarioController
             return
         }
 
-        let user = await Usuario.findOne({email})
+        let usuarioEmail = await Usuario.findOne({email})
 
-        if(user){
+        if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
             resp.redirect("/usuarios/cadastro")
             return
@@ -43,9 +42,7 @@ class usuarioController
 
         await usuario.save()
 
-        req.session.usuarioEmail = usuario.email
-        req.session.usuarioNome= usuario.nome
-
+        req.session.usuario = usuario
 
         req.flash("success",`Bem vindo: ${usuario.nome}`)
         req.session.save(()=>{
@@ -73,7 +70,7 @@ class usuarioController
             return
         }
 
-        req.session.usuarioId = usuario.id
+        req.session.usuario = usuario
 
         req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
 
@@ -83,9 +80,9 @@ class usuarioController
     }
 
     static logout(req,resp){
-        req.session.destroy(()=>{
-            resp.redirect("/usuarios/login")
-        })
+        req.session.destroy()
+        resp.redirect("/usuarios/login")
+    
     }
 }
 
