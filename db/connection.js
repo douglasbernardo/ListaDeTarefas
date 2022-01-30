@@ -4,7 +4,9 @@ const mongoose = require("mongoose")
 const uri =  "mongodb://localhost:27017/listaTarefas"
 
 async function main(){
-    await mongoose.connect(uri)
+    await mongoose.connect(uri,{
+        
+    })
     console.log("Conectado ao banco")
 }
 
