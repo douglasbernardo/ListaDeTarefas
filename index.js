@@ -12,6 +12,7 @@ const rotasUsuarios = require("./rotas/rotasUsuarios")
 
 //HANDLEBARS SETTINGS
 const handleBars = require("express-handlebars")
+const process = require('process')
 
 const hbs = handleBars.create({
   partialsDir: ["views/partials/"], //partials path
@@ -27,11 +28,13 @@ app.use(express.json())
 
 app.use(express.static('public'))
 
+require("dotenv").config()
+
 //session middleware
 app.use(
   session({
     name: 'session',
-    secret: '12345',
+    secret: process.env.SECRET_SESSION,
     resave: false,
     saveUninitialized: false,
     store: new FileStore({
@@ -59,6 +62,9 @@ app.use((req, resp, next) => {
 
   next();
 });
+
+//console.log(process.env.SECRET_SESSION)
+
 app.use('/tarefas',rotasTarefas)
 
 app.use('/usuarios',rotasUsuarios)
