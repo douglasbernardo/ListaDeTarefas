@@ -1,6 +1,6 @@
 <h1 align="center">Lista De Tarefas</h1>
 
->Lista de Tarefas
+>Lista de Tarefas, Anote tarefas que você deseja fazer e o horário que elas serão feitas e o sistema irá te enviar um e-mail avisando desta tarefa.
 
 ### 🛠 Tecnologias
 
