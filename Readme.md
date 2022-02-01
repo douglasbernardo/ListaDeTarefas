@@ -11,4 +11,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [BOOTSTRAP](https://bootstrap/)
 - [NPM](https://www.npmjs.com/)
 - [NODE .JS](https://nodejs.org/en/)
-- [EXPRESS](https://api.jquery.com/jquery.ajax/)
+- [EXPRESS](https://expressjs.com/pt-br/)
