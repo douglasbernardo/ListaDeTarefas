@@ -4,7 +4,7 @@
 
 ### 🛠 Tecnologias
 
-As seguintes ferramentas foram usadas na construção do projeto:
+Ferramentas que estão sendo utilizadas para a construção do sistema:
 
 - [HTML](https://www.w3schools.com/html/)
 - [CSS](https://www.w3schools.com/css/)
