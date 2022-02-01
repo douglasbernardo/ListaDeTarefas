@@ -18,6 +18,7 @@ class usuarioController
     static async cadastro(req,resp)
     {
         const {nome,email,senha,confirmarSenha} = req.body
+
         if(!validarUsuarioCadastro(req,resp,nome,email,senha,confirmarSenha)){
             console.log("Alguma coisa de errado aconteceu!")
             return
@@ -52,10 +53,11 @@ class usuarioController
 
     static async login(req,resp){
 
-        const {email,senha,confirmarSenha} = req.body
-        validarUsuarioLogin(req,resp,email,senha,confirmarSenha)
+        const {email,senha} = req.body
+        validarUsuarioLogin(req,resp,email,senha)
 
         const usuario = await Usuario.findOne({email})
+
         if(!usuario){
             req.flash("error","E-mail não cadastrado")
             resp.redirect("/usuarios/login")
@@ -63,16 +65,18 @@ class usuarioController
         }
 
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
-
+        //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
             req.flash("error","Senha inválida")
             resp.redirect("/usuarios/login")
             return
         }
 
-        req.session.usuario = usuario
+        //inicializar a sessão 
 
-        req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
+        req.session.usuario = usuario.id
+
+        req.flash("success",`Bem vindo de novo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
 
         req.session.save(()=>{
             resp.redirect("/tarefas")
