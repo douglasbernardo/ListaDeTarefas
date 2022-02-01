@@ -6,7 +6,8 @@ const Tarefa = mongoose.model(
     new mongoose.Schema({
         titulo:{type:String,required:true},
         descricao:{type:String,required:true},
-        status:{type:Boolean,required:true}
+        status:{type:Boolean,required:true},
+        usuario:Object
     })
 )
 
