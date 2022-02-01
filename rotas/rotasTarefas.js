@@ -3,13 +3,15 @@ const router = require("express").Router()
 
 const tarefaController = require("../controllers/tarefaController")
 
-router.get("",tarefaController.minhasTarefas)
-router.get("/adicionarTarefa",tarefaController.mostraFormulario)
-router.post("/adicionarTarefa",tarefaController.adicionarTarefa)
-router.post("/excluir/:id",tarefaController.excluirTarefa)
-router.get("/editar/:id",tarefaController.formularioEdicao)
-router.post("/editar",tarefaController.editar)
-router.post("/done/:id",tarefaController.tarefaFeita)
+const checarUsuario = require("../helpers/checarUsuario").usuarioAuth
+
+router.get("",checarUsuario,tarefaController.minhasTarefas)
+router.get("/adicionarTarefa",checarUsuario,tarefaController.mostraFormulario)
+router.post("/adicionarTarefa",checarUsuario,tarefaController.adicionarTarefa)
+router.post("/excluir/:id",checarUsuario,tarefaController.excluirTarefa)
+router.get("/editar/:id",checarUsuario,tarefaController.formularioEdicao)
+router.post("/editar",checarUsuario,tarefaController.editar)
+router.post("/done/:id",checarUsuario,tarefaController.tarefaFeita)
 
 
 module.exports = router

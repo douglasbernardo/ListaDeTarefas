@@ -6,18 +6,14 @@
         <title>Document</title>
     </head>
     <body>
-        <h1>Cadastro De Usuário</h1>
+        <h1>Login De Usuário</h1>
         <div class="container w-25">
             {{#if messages.error}}
                 <div class="alert alert-danger">
                      <p class="m-0 text-center">{{messages.error}}.</p>
                 </div>
             {{/if}}
-            <form action="/usuarios/cadastro" method="post">
-                <div class="mb-3">
-                    <label for="Nome" class="form-label">Nome:</label>
-                    <input type="text" name="nome" class="form-control" placeholder="Seu nome" autocomplete="off">
-                </div>
+            <form action="/usuarios/login" method="post">
                 <div class="mb-3">
                     <label for="Email" class="form-label">E-mail:</label>
                     <input type="email" class="form-control" name="email" placeholder="Seu E-mail" autocomplete="off">
@@ -26,17 +22,13 @@
                     <label for="senha" class="form-label">Senha:</label>
                     <input type="password" class="form-control" name="senha" placeholder="Coloque um senha segura" autocomplete="off">
                 </div>
-                <div class="mb-3">
-                    <label for="confirmarSenha" class="form-label">Confirmação de senha:</label>
-                    <input type="password" class="form-control" name="confirmarSenha" placeholder="Confirme sua senha" autocomplete="off">
-                </div>
                 <button type="submit" class="btn btn-outline-primary">
-                    Adicionar
+                    Logar
                 </button>
-                    <a href="/usuarios/cadastro">
+                    <a href="/usuarios/login">
                     <button type="button" class="btn btn-outline-primary">Voltar</button>
                 </a>
-                  <p>Já é cadastrado? <a href="/usuarios/login">Login</a></p>
+                <p>Não é cadastrado? <a href="/usuarios/cadastro">Cadastre-se</a></p>
             </form>
         </div>
     </body>

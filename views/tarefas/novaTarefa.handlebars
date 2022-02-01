@@ -2,9 +2,11 @@
 <html lang="en">
     <head>
         {{>head}}
+        <link rel="stylesheet" href="/css/tarefas.css">
         <title>Nova Tarefa</title>
     </head>
     <body>
+        {{>navBar}}
         <h1>Adicionar Tarefa</h1>
         <div class="container">
             {{#if messages.error}}

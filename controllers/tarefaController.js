@@ -1,5 +1,9 @@
 
+const { ObjectId } = require("mongodb")
+
 const Tarefa = require("../models/Tarefa")
+
+const Usuario = require("../models/Usuario")
 
 class tarefaController
 {
@@ -35,7 +39,18 @@ class tarefaController
             return
         }
 
-        const data = new Tarefa({titulo,descricao,status})
+        const usuario = await Usuario.findById({_id:ObjectId(req.session.usuario)})
+        
+        const data = new Tarefa({
+            titulo,
+            descricao,
+            status,
+            usuario:{
+                _id:usuario._id,
+                nome:usuario.nome,
+                email:usuario.email,
+            }
+        })
 
         await data.save()
 
@@ -45,7 +60,12 @@ class tarefaController
     }
 
     static async minhasTarefas(req,resp){
-        const tarefas = await Tarefa.find().lean()
+    
+        //const tarefas = await Tarefa.find().lean()
+        console.log(req.session.usuario)
+        const tarefas = await Tarefa.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
+
+        console.log("Sua lista:" + tarefas)
 
         resp.render('tarefas/tarefas',{tarefas})
     }
