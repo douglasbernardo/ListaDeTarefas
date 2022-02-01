@@ -49,8 +49,8 @@ module.exports = {
         return true
     },
 
-    validarUsuarioLogin(req,resp,email,senha,confirmarSenha){
-        if(!email && !senha && !confirmarSenha){
+    validarUsuarioLogin(req,resp,email,senha){
+        if(!email && !senha){
             req.flash('error',"Os dados são obrigatórios")
             resp.redirect("/usuarios/login")
             return
@@ -62,17 +62,6 @@ module.exports = {
         }
         if(!senha){
             req.flash('error',"A senha é obrigatório")
-            resp.redirect("/usuarios/login")
-            return
-        }
-        if(!confirmarSenha){
-            req.flash('error',"A confirmação de senha é obrigatório")
-            resp.redirect("/usuarios/login")
-            return
-        }
-
-        if(senha !== confirmarSenha){
-            req.flash('error',"As senhas não são iguais")
             resp.redirect("/usuarios/login")
             return
         }
