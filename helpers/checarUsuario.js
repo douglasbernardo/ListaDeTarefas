@@ -1,9 +1,10 @@
 
 module.exports = {
     usuarioAuth(req,resp,next){
-        const user = req.session.usuario
+        
+        const usuario = req.session.usuario
 
-        if(!user){
+        if(!usuario){
             resp.redirect("/usuarios/login")
             return
         }
