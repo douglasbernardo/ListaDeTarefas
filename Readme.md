@@ -15,10 +15,8 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 
 ## ✅ Todas as Features
 
-## Features de Usuario
-- [x] Cadastro de usuário
-- [x] Cadastro de Tarefa
-<p align="center">Features de Tarefas</p>
-- [x] Edição de Tarefa
-- [x] Edição de Tarefa
-- [x] Edição de Tarefa
+## Features de Usuários 
+- [x] Cadastro de usuários
+- [x] Login de usuário 
+- [x] Logout de usuário
+
