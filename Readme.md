@@ -2,7 +2,7 @@
 
 >Lista de Tarefas, Anote tarefas que você deseja fazer e o horário que elas serão feitas e o sistema irá te enviar um e-mail avisando desta tarefa.
 
-### 🛠 Tecnologias
+## 🛠 Tecnologias
 
 Ferramentas que estão sendo utilizadas para a construção do sistema:
 
@@ -13,7 +13,7 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [NODE .JS](https://nodejs.org/en/)
 - [EXPRESS](https://expressjs.com/pt-br/)
 
-## ✅ Todas as Features
+### ✅ Todas as Features
 
 ## Features de Usuários 
 - [x] Cadastro de usuários
