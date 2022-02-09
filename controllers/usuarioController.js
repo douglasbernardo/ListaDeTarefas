@@ -86,7 +86,18 @@ class usuarioController
     static logout(req,resp){
         req.session.destroy()
         resp.redirect("/usuarios/login")
+    }
+
+    static async removerConta(req,resp){
+
+        const id = req.session.usuario
+        if(!id)
+            console.log("ID não encontrado")
+
     
+        const usuario = await Usuario.findByIdAndDelete(id)
+
+        resp.redirect("/usuarios/login")
     }
 }
 

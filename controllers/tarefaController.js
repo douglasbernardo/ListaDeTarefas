@@ -7,33 +7,29 @@ const Usuario = require("../models/Usuario")
 
 class tarefaController
 {
-
     static mostraFormulario(req,resp){
         resp.render("tarefas/novaTarefa",{layout:false})
     }
 
     static async adicionarTarefa(req,resp){
-        
-        const titulo = req.body.titulo
-        const descricao = req.body.descricao
+
+        const {titulo,descricao} = req.body
         const status = false //true=tarefa feita ----- false = tarefa não feita
         
         if(!titulo && !descricao){
             req.flash("error",'Preencha os dados corretamente')
-
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
 
-         if(!titulo){
+        if(!titulo){
             req.flash("error",'Preecha o titulo')
 
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
         if(!descricao){
-            const tipo = "error"
-            req.flash(tipo,'Preencha a descrição')
+            req.flash("error",'Preencha a descrição')
 
             resp.redirect("/tarefas/adicionarTarefa")
             return
@@ -41,7 +37,7 @@ class tarefaController
 
         const usuario = await Usuario.findById({_id:ObjectId(req.session.usuario)})
         
-        const data = new Tarefa({
+        const dadosTarefa = new Tarefa({
             titulo,
             descricao,
             status,
@@ -52,7 +48,7 @@ class tarefaController
             }
         })
 
-        await data.save()
+        await dadosTarefa.save()
 
         req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
 
@@ -60,13 +56,8 @@ class tarefaController
     }
 
     static async minhasTarefas(req,resp){
-    
-        //const tarefas = await Tarefa.find().lean()
-        console.log(req.session.usuario)
+
         const tarefas = await Tarefa.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
-
-        console.log("Sua lista:" + tarefas)
-
         resp.render('tarefas/tarefas',{tarefas})
     }
 
