@@ -25,3 +25,4 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Cadastro de Tarefas
 - [x] Remoção de Tarefas
 - [x] Edição de Tarefas
+- [x] Listar todas as tarefas do usuário logado
