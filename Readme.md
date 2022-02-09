@@ -13,9 +13,9 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [NODE .JS](https://nodejs.org/en/)
 - [EXPRESS](https://expressjs.com/pt-br/)
 
-### ✅ Todas as Features
+## ✅ Todas as Features
 
-## Features de Usuários 
+### Features de Usuários 
 - [x] Cadastro de usuários
 - [x] Login de usuário 
 - [x] Logout de usuário
