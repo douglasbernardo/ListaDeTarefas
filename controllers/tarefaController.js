@@ -96,12 +96,12 @@ class tarefaController
         const descricao = req.body.descricao
 
         if(!titulo){
-            req.flash("error",'Preecha o titulo')
+            req.flash("error",'Preencha o titulo')
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
         if(!descricao){
-            req.flash("error",'Preecha a descrição')
+            req.flash("error",'Preencha a descrição')
             resp.redirect("/tarefas/adicionarTarefa")
             return
         }
