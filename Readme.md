@@ -13,8 +13,8 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [NODE .JS](https://nodejs.org/en/)
 - [EXPRESS](https://expressjs.com/pt-br/)
 
-### Features
+## Features
 - Criação de usuário ✅
-- Criação de Tarefa ✅
+- Criação de Tarefa  ✅
 - Exclusão de Tarefa ✅
-- Edição de Tarefa ✅
+- Edição de Tarefa   ✅
