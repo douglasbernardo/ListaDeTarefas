@@ -14,4 +14,7 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [EXPRESS](https://expressjs.com/pt-br/)
 
 ### Features
- [x] - Criação de usuário
+- Criação de usuário ✅
+- Criação de Tarefa ✅
+- Exclusão de Tarefa ✅
+- Edição de Tarefa ✅
