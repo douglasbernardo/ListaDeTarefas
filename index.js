@@ -56,14 +56,12 @@ app.use(flash());
 // set session to res
 app.use((req, resp, next) => {
   // console.log(req.session)
-  if (req.session.usuario) {
+  if(req.session.usuario) {
     resp.locals.session = req.session;
   }
 
   next();
 });
-
-//console.log(process.env.SECRET_SESSION)
 
 app.use('/tarefas',rotasTarefas)
 

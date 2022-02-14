@@ -24,7 +24,9 @@ class usuarioController
             return
         }
 
-        let usuarioEmail = await Usuario.findOne({email})
+        let usuarioEmail = await Usuario.findOne({
+            email:email
+        })
 
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
