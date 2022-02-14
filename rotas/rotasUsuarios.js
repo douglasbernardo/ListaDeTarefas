@@ -10,4 +10,6 @@ router.post("/login",usuarioController.login)
 
 router.get("/logout",usuarioController.logout)
 
+router.get("/removerConta",usuarioController.removerConta)
+
 module.exports = router
