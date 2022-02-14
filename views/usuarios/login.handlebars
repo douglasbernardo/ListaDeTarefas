@@ -9,8 +9,8 @@
         <h1>Login De Usuário</h1>
         <div class="container w-25">
             {{#if messages.error}}
-                <div class="alert alert-danger">
-                     <p class="m-0 text-center">{{messages.error}}.</p>
+                <div class="alert alert-danger" role="alert">
+                    <p style="text-align: center;">{{messages.error}}</p>
                 </div>
             {{/if}}
             <form action="/usuarios/login" method="post">

@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt")
 
 class usuarioController
 {
+
     static formularioCadastro(req,resp)
     {
         resp.render("usuarios/cadastro",{layout:false})
@@ -24,9 +25,7 @@ class usuarioController
             return
         }
 
-        let usuarioEmail = await Usuario.findOne({
-            email:email
-        })
+        let usuarioEmail = await Usuario.findOne({email:email})
 
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
@@ -48,6 +47,7 @@ class usuarioController
         req.session.usuario = usuario
 
         req.flash("success",`Bem vindo: ${usuario.nome}`)
+        
         req.session.save(()=>{
             resp.redirect("/tarefas")
         })
@@ -61,21 +61,20 @@ class usuarioController
         const usuario = await Usuario.findOne({email})
 
         if(!usuario){
-            req.flash("error","E-mail não cadastrado")
-            resp.redirect("/usuarios/login")
+            req.flash("error","E-mail não encontrado")
+            resp.redirect('/usuarios/login')
             return
         }
 
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("error","Senha inválida")
-            resp.redirect("/usuarios/login")
+            req.flash("error","A senha está incorreta") 
+            resp.redirect('/usuarios/login')
             return
         }
 
         //inicializar a sessão 
-
         req.session.usuario = usuario.id
 
         req.flash("success",`Bem vindo de novo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
@@ -88,7 +87,20 @@ class usuarioController
     static logout(req,resp){
         req.session.destroy()
         resp.redirect("/usuarios/login")
-    
+    }
+
+    static async removerConta(req,resp){
+
+        const id = req.session.usuario
+
+        if(!id){
+            console.log("ID não foi encontrado")
+            return
+        }
+
+        const usuario = await Usuario.findByIdAndDelete(id)
+
+        resp.redirect("/usuarios/login")
     }
 }
 
