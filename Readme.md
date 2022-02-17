@@ -28,13 +28,19 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Edição de Tarefas
 - [x] Listar todas as tarefas do usuário logado
 
-## Instalação do projeto na sua máquina 
-### Passos!
+Para a instalação:
 
-1. Clonar o repositório na sua máquina 
-2. Instalar todos os módulos usados no projeto
-3. startar o servidor
+ 1- Clone o repositório
 
-   git clone https://github.com/douglasbernardo/ListaDeTarefas.git
-   npm install
-   npm run start
+ 2- Crie o db no Mysql e o arquivo .env
+
+ 3- Execute os camandos a seguir na pasta raiz do projeto:
+
+    composer install
+
+    php artisan migrate --seed
+
+Usuário e senha padrão:
+
+    user@user.com
+    123456
