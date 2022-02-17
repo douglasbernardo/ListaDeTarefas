@@ -27,3 +27,6 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Remoção de Tarefas
 - [x] Edição de Tarefas
 - [x] Listar todas as tarefas do usuário logado
+
+### Instalação do projeto na sua máquina 
+
