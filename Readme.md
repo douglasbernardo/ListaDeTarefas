@@ -34,3 +34,8 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 1. Clonar o repositório na sua máquina 
 2. Instalar todos os módulos usados no projeto
 3. startar o servidor
+
+` 
+  git clone 
+  npm install
+`
