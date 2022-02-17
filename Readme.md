@@ -32,15 +32,12 @@ Para a instalação:
 
  1- Clone o repositório
 
- 2- Crie o db no Mysql e o arquivo .env
+ 2- Instale os modulos necessários 
 
- 3- Execute os camandos a seguir na pasta raiz do projeto:
+ 3- Startar o servidor
 
-    composer install
+    git clone https://github.com/douglasbernardo/ListaDeTarefas.git
 
-    php artisan migrate --seed
+    npm install
 
-Usuário e senha padrão:
 
-    user@user.com
-    123456
