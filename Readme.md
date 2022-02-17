@@ -28,11 +28,12 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Edição de Tarefas
 - [x] Listar todas as tarefas do usuário logado
 
+## Instalação do Projeto
 Para a instalação:
 
  1- Clone o repositório
 
- 2- Instale os modulos necessários 
+ 2- Instale os módulos necessários 
 
  3- Startar o servidor
 
