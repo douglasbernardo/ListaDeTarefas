@@ -39,5 +39,7 @@ Para a instalação:
     git clone https://github.com/douglasbernardo/ListaDeTarefas.git
 
     npm install
+    
+    npm run start
 
 
