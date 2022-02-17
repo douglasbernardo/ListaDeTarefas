@@ -31,6 +31,6 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 ## Instalação do projeto na sua máquina 
 ### Passos!
 
-1 Clonar o repositório na sua máquina 
-2 Instalar todos os módulos usados no projeto
-3 startar o servidor
+1. Clonar o repositório na sua máquina 
+2. Instalar todos os módulos usados no projeto
+3. startar o servidor
