@@ -28,5 +28,8 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Edição de Tarefas
 - [x] Listar todas as tarefas do usuário logado
 
-### Instalação do projeto na sua máquina 
+## Instalação do projeto na sua máquina 
+### Passos!
 
+- https://github.com/douglasbernardo/ListaDeTarefas.git
+- npm install 
