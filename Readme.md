@@ -31,5 +31,5 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 ## Instalação do projeto na sua máquina 
 ### Passos!
 
-- https://github.com/douglasbernardo/ListaDeTarefas.git
-- npm install 
+- git clone https://github.com/douglasbernardo/ListaDeTarefas.git para clonar 
+- npm install para instalar todos módulos usados no projeto
