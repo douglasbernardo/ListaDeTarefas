@@ -36,6 +36,8 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 3. startar o servidor
 
 ` 
-  git clone 
-  npm install
+  git clone https://github.com/douglasbernardo/ListaDeTarefas.git
+`
+` 
+  npm install 
 `
