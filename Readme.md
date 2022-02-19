@@ -36,10 +36,14 @@ Para a instalação:
  2- Instale os módulos necessários 
 
  3- Startar o servidor
+ 
+ 4 - Entre na pasta
 
     git clone https://github.com/douglasbernardo/ListaDeTarefas.git
 
     npm install
+    
+    cd ListaDeTarefas
     
     npm run start
 
