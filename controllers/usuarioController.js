@@ -1,5 +1,6 @@
 
 const Usuario = require("../models/Usuario")
+const Tarefa = require("../models/Tarefa")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
 const bcrypt = require("bcrypt")
 
@@ -88,12 +89,15 @@ class usuarioController
 
     static async removerConta(req,resp){
 
-        const id = ""
-        
-        !id ? console.log("ID não encontrado") : ""
+        const id = req.session.usuario
 
+        if(!id){
+            resp.status(401)
+            return
+        }
         const usuario = await Usuario.findByIdAndDelete(id)
-
+        
+        //Remover todas as tarefas caso o usuario escolha deletar sua conta
         resp.redirect("/usuarios/login")
     }
 }
