@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const session = require("express-session")
-const {flash} = require("express-flash-message")
+const flash = require("express-flash")
 const conn = require("./db/connection")
 
 const FileStore = require("session-file-store")(session)
