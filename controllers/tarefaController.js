@@ -50,7 +50,7 @@ class tarefaController
 
         await dadosTarefa.save()
 
-        req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
+        await req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
 
         resp.redirect('/tarefas')
     }

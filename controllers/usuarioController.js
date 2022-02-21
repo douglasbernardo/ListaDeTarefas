@@ -20,7 +20,7 @@ class usuarioController
         const {nome,email,senha,confirmarSenha} = req.body
 
         if(!validarUsuarioCadastro(req,resp,nome,email,senha,confirmarSenha)){
-            console.log("Alguma coisa de errado aconteceu!")
+            console.log("Não foi possivel fazer o seu cadastro")
             return
         }
 
@@ -29,7 +29,6 @@ class usuarioController
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
             resp.redirect("/usuarios/cadastro")
-            return
         }
 
         //fazer um hash da senha
@@ -67,7 +66,7 @@ class usuarioController
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("error","Senhas não são iguais")
+            req.flash("error","A senha está incorreta.")
             resp.redirect('/usuarios/login')
             return
         }
