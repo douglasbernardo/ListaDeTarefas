@@ -3,8 +3,12 @@
         <a class="navbar-brand" href="/tarefas">
             Minhas Tarefas
         </a>
-        <a href="/usuarios/logout"><i style="color: white; font-size:25px; margin-left: 47em;" class="fas fa-sign-out-alt"></i></a>
-        <p style="color: aliceblue; padding:1px; margin:12px">Ou</p>
-        <a href="/usuarios/removerConta">Remover Conta</a>
+      <div class="btn-group dropstart">
+        <img src="imgsAndIcons/gear.png" style="display: flex;height:50px" alt="" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="color: aquamarine;">
+            <li style="text-decoration: underline;"><a class="dropdown-item" href="/usuarios/logout">Sair</a></li>
+            <li style="text-decoration: underline;"><a class="dropdown-item" href="/usuarios/removerConta">Deletar sua Conta</a></li>
+        </ul>
+    </div>
     </div>
 </nav>
