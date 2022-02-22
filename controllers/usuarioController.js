@@ -1,5 +1,6 @@
 
 const Usuario = require("../models/Usuario")
+const Tarefa = require("../models/Tarefa")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
 const bcrypt = require("bcrypt")
 
@@ -20,7 +21,7 @@ class usuarioController
         const {nome,email,senha,confirmarSenha} = req.body
 
         if(!validarUsuarioCadastro(req,resp,nome,email,senha,confirmarSenha)){
-            console.log("Alguma coisa de errado aconteceu!")
+            console.log("Não foi possivel fazer o seu cadastro")
             return
         }
 
@@ -29,7 +30,6 @@ class usuarioController
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
             resp.redirect("/usuarios/cadastro")
-            return
         }
 
         //fazer um hash da senha
@@ -67,7 +67,7 @@ class usuarioController
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("error","Senhas não são iguais")
+            req.flash("error","A senha está incorreta.")
             resp.redirect('/usuarios/login')
             return
         }
@@ -89,12 +89,15 @@ class usuarioController
 
     static async removerConta(req,resp){
 
-        const id = ""
-        
-        !id ? console.log("ID não encontrado") : ""
+        const id = req.session.usuario
 
+        if(!id){
+            resp.status(401)
+            return
+        }
         const usuario = await Usuario.findByIdAndDelete(id)
-
+        
+        //Remover todas as tarefas caso o usuario escolha deletar sua conta
         resp.redirect("/usuarios/login")
     }
 }
