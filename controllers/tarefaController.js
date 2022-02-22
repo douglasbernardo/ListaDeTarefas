@@ -23,7 +23,7 @@ class tarefaController
         }
 
         if(!titulo){
-            req.flash("error",'Preecha o titulo')
+            req.flash("error",'Preencha o titulo')
 
             resp.redirect("/tarefas/adicionarTarefa")
             return
@@ -50,7 +50,7 @@ class tarefaController
 
         await dadosTarefa.save()
 
-        req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
+        resp.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
 
         resp.redirect('/tarefas')
     }
