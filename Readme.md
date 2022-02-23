@@ -31,11 +31,11 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 ## Instalação do Projeto
 Para a instalação:
 
- 1- Clone o repositório
+ 1 - Clone o repositório
 
- 2- Instale os módulos necessários 
+ 2 - Instale os módulos necessários 
 
- 3- Entre na pasta
+ 3 - Entre na pasta
  
  4 - Iniciar o servidor
 
