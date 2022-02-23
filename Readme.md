@@ -35,9 +35,9 @@ Para a instalação:
 
  2- Instale os módulos necessários 
 
- 3- Startar o servidor
+ 3- Entre na pasta
  
- 4 - Entre na pasta
+ 4 - Iniciar o servidor
 
     git clone https://github.com/douglasbernardo/ListaDeTarefas.git
 
