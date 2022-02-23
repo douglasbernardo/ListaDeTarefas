@@ -5,7 +5,7 @@ const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/vali
 const bcrypt = require("bcrypt")
 const { ObjectId } = require("mongodb")
 
-
+const http = require("http-status-codes").StatusCodes
 
 class usuarioController
 {
@@ -94,14 +94,14 @@ class usuarioController
         const uid = req.session.usuario
 
         if(!uid){
-            resp.status(401).json({message:"Id não foi encontrado"})
+            resp.send(http.UNAUTHORIZED)
             return
         } 
 
         const usuario = await Usuario.findById(uid)
 
         if(uid !== usuario.id){
-            resp.status(401).json({message:"falha ao excluir usuario"})
+            resp.send(http.UNAUTHORIZED)
             return
         }
 

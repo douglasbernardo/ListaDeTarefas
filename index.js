@@ -63,11 +63,9 @@ app.use((req, resp, next) => {
   next();
 });
 
-//console.log(process.env.SECRET_SESSION)
-
 app.use('/tarefas',rotasTarefas)
 
 app.use('/usuarios',rotasUsuarios)
 
 
-app.listen(2000,console.log("servidor rodando"))
+app.listen(2000)
