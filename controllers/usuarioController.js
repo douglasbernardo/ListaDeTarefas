@@ -3,6 +3,8 @@ const Usuario = require("../models/Usuario")
 const Tarefa = require("../models/Tarefa")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
 const bcrypt = require("bcrypt")
+const { ObjectId } = require("mongodb")
+
 
 
 class usuarioController
@@ -75,7 +77,7 @@ class usuarioController
         //inicializar a sessão 
         req.session.usuario = usuario.id
 
-        req.flash("success",`Bem vindo de novo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
+        req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
 
         req.session.save(()=>{
             resp.redirect("/tarefas")
@@ -89,15 +91,24 @@ class usuarioController
 
     static async removerConta(req,resp){
 
-        const id = req.session.usuario
+        const uid = req.session.usuario
 
-        if(!id){
-            resp.status(401)
+        if(!uid){
+            resp.status(401).json({message:"Id não foi encontrado"})
+            return
+        } 
+
+        const usuario = await Usuario.findById(uid)
+
+        if(uid !== usuario.id){
+            resp.status(401).json({message:"falha ao excluir usuario"})
             return
         }
-        const usuario = await Usuario.findByIdAndDelete(id)
-        
-        //Remover todas as tarefas caso o usuario escolha deletar sua conta
+
+        await Tarefa.deleteMany({"usuario._id": ObjectId(usuario.id)}) //deleta todas as tarefas do usuario logado
+
+        await Usuario.findByIdAndDelete(usuario.id) //deleta a conta do usuario que estava logado
+
         resp.redirect("/usuarios/login")
     }
 }
