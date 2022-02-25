@@ -48,3 +48,9 @@ Para a instalação:
     npm run start
 
 
+## Autores
+
+- [@DouglasBernardo](https://www.github.com/octokatherine)
+
+
+
