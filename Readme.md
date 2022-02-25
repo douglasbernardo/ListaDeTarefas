@@ -47,10 +47,19 @@ Para a instalação:
     
     npm run start
 
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`SECRET_SESSION`
+
+``
+
+
 
 ## Autores
 
-- [@DouglasBernardo](https://www.github.com/octokatherine)
+- [@DouglasBernardo](https://github.com/douglasbernardo)
 
 
 
