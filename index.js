@@ -13,6 +13,7 @@ const rotasUsuarios = require("./rotas/rotasUsuarios")
 //HANDLEBARS SETTINGS
 const handleBars = require("express-handlebars")
 const process = require('process')
+const router = require('./rotas/rotasTarefas')
 
 const hbs = handleBars.create({
   partialsDir: ["views/partials/"], //partials path
@@ -64,8 +65,12 @@ app.use((req, resp, next) => {
 });
 
 app.use('/tarefas',rotasTarefas)
-
 app.use('/usuarios',rotasUsuarios)
+
+app.use(function(req, resp, next) {
+  resp.render("erros/httpErros",{code:404})
+  return
+});
 
 
 app.listen(2000)

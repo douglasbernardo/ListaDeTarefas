@@ -4,7 +4,6 @@ const Tarefa = require("../models/Tarefa")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
 const bcrypt = require("bcrypt")
 const { ObjectId } = require("mongodb")
-
 const http = require("http-status-codes").StatusCodes
 
 class usuarioController
@@ -27,7 +26,7 @@ class usuarioController
             return
         }
 
-        let usuarioEmail = await Usuario.findOne({email:email})
+        let usuarioEmail = await Usuario.findOne({email})
 
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
@@ -44,13 +43,9 @@ class usuarioController
         })
 
         await usuario.save()
-
-        req.session.usuario = usuario
-
-        req.flash("success",`Bem vindo: ${usuario.nome}`)
-        req.session.save(()=>{
-            resp.redirect("/tarefas")
-        })
+        
+        resp.redirect("/tarefas")
+    
     }
 
     static async login(req,resp){
@@ -61,7 +56,7 @@ class usuarioController
         const usuario = await Usuario.findOne({email})
 
         if(!usuario){
-            req.flash("error","E-mail não encontrado")
+            req.flash("success","E-mail não encontrado")
             resp.redirect('/usuarios/login')
             return
         }
@@ -69,7 +64,7 @@ class usuarioController
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("error","A senha está incorreta.")
+            req.flash("success","A senha está incorreta.")
             resp.redirect('/usuarios/login')
             return
         }
@@ -94,14 +89,14 @@ class usuarioController
         const uid = req.session.usuario
 
         if(!uid){
-            resp.send(http.UNAUTHORIZED)
+            resp.render("erros/httpErros",{code:401})
             return
         } 
 
         const usuario = await Usuario.findById(uid)
 
         if(uid !== usuario.id){
-            resp.send(http.UNAUTHORIZED)
+            resp.render("erros/httpErros",{code:401})
             return
         }
 

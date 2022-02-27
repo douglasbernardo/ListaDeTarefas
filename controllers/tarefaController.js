@@ -56,7 +56,6 @@ class tarefaController
     }
 
     static async minhasTarefas(req,resp){
-
         const tarefas = await Tarefa.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
         resp.render('tarefas/tarefas',{tarefas})
     }
