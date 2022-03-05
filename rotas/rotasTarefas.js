@@ -12,9 +12,6 @@ router.post("/excluir/:id",checarUsuario,tarefaController.excluirTarefa)
 router.get("/editar/:id",checarUsuario,tarefaController.formularioEdicao)
 router.post("/editar",checarUsuario,tarefaController.editar)
 router.post("/done/:id",checarUsuario,tarefaController.tarefaFeita)
+//router.get("/testeMsg",tarefaController.testeFlashMessage)
 
-// if(router){
-//     console.log(router.route.)
-//     // resp.send(`<img src='https://http.cat/404'>`)
-// }
 module.exports = router

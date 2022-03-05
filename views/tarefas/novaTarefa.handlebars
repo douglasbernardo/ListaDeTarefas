@@ -9,9 +9,9 @@
         {{>navBar}}
         <h1>Adicionar Tarefa</h1>
         <div class="container">
-            {{#if messages.error}}
+            {{#if messages.info}}
                 <div class="alert alert-danger" role="alert">
-                    <p style="text-align: center;">{{messages.error}}</p>
+                    <p style="text-align: center;">{{messages.info}}</p>
                 </div>
             {{/if}}
             <form action="/tarefas/adicionarTarefa" method="post">

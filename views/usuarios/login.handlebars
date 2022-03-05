@@ -9,9 +9,9 @@
         <h1>Login De Usuário</h1>
         <div class="containerLogin">
             <div class="container w-25">
-                {{#if messages.success}}
-                    <div class="alert alert-success" role="alert">
-                        <p style="text-align: center;">{{messages.success}}</p>
+                 {{#if messages.error}}
+                    <div class="alert alert-error" role="alert">
+                        <p style="text-align: center;">{{messages.error}}</p>
                     </div>
                 {{/if}}
                 <form action="/usuarios/login" method="post">

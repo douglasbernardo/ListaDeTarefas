@@ -4,24 +4,23 @@ const Tarefa = require("../models/Tarefa")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
 const bcrypt = require("bcrypt")
 const { ObjectId } = require("mongodb")
-const http = require("http-status-codes").StatusCodes
 
 class usuarioController
 {
-    static formularioCadastro(req,resp)
+    static formularioCadastro(req,res)
     {
-        resp.render("usuarios/cadastro",{layout:false})
+        res.render("usuarios/cadastro",{layout:false})
     }
-    static formularioLogin(req,resp)
+    static formularioLogin(req,res)
     {
-        resp.render("usuarios/login",{layout:false})
+        res.render("usuarios/login",{layout:false})
     }
 
-    static async cadastro(req,resp)
+    static async cadastro(req,res)
     {
         const {nome,email,senha,confirmarSenha} = req.body
 
-        if(!validarUsuarioCadastro(req,resp,nome,email,senha,confirmarSenha)){
+        if(!validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha)){
             console.log("Não foi possivel fazer o seu cadastro")
             return
         }
@@ -30,7 +29,7 @@ class usuarioController
 
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
-            resp.redirect("/usuarios/cadastro")
+            res.redirect("/usuarios/cadastro")
         }
 
         //fazer um hash da senha
@@ -44,20 +43,20 @@ class usuarioController
 
         await usuario.save()
         
-        resp.redirect("/tarefas")
+        res.redirect("/tarefas")
     
     }
 
-    static async login(req,resp){
+    static async login(req,res){
 
         const {email,senha} = req.body
-        validarUsuarioLogin(req,resp,email,senha)
+        validarUsuarioLogin(req,res,email,senha)
 
         const usuario = await Usuario.findOne({email})
 
         if(!usuario){
-            req.flash("success","E-mail não encontrado")
-            resp.redirect('/usuarios/login')
+            req.flash("success","A senha está incorreta.")
+            res.redirect('/usuarios/login')
             return
         }
 
@@ -65,7 +64,7 @@ class usuarioController
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
             req.flash("success","A senha está incorreta.")
-            resp.redirect('/usuarios/login')
+            res.redirect('/usuarios/login')
             return
         }
 
@@ -75,28 +74,28 @@ class usuarioController
         req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
 
         req.session.save(()=>{
-            resp.redirect("/tarefas")
+            res.redirect("/tarefas")
         })
     }
 
-    static logout(req,resp){
+    static logout(req,res){
         req.session.destroy()
-        resp.redirect("/usuarios/login")
+        res.redirect("/usuarios/login")
     }
 
-    static async removerConta(req,resp){
+    static async removerConta(req,res){
 
         const uid = req.session.usuario
 
         if(!uid){
-            resp.render("erros/httpErros",{code:401})
+            res.render("erros/httpErros",{code:401})
             return
         } 
 
         const usuario = await Usuario.findById(uid)
 
         if(uid !== usuario.id){
-            resp.render("erros/httpErros",{code:401})
+            res.render("erros/httpErros",{code:401})
             return
         }
 
@@ -104,7 +103,7 @@ class usuarioController
 
         await Usuario.findByIdAndDelete(usuario.id) //deleta a conta do usuario que estava logado
 
-        resp.redirect("/usuarios/login")
+        res.redirect("/usuarios/login")
     }
 }
 
