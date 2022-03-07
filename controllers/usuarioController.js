@@ -7,17 +7,15 @@ const { ObjectId } = require("mongodb")
 
 class usuarioController
 {
-    static formularioCadastro(req,res)
-    {
+    static formularioCadastro(req,res){
         res.render("usuarios/cadastro",{layout:false})
     }
-    static formularioLogin(req,res)
-    {
+
+    static formularioLogin(req,res){
         res.render("usuarios/login",{layout:false})
     }
 
-    static async cadastro(req,res)
-    {
+    static async cadastro(req,res){
         const {nome,email,senha,confirmarSenha} = req.body
 
         if(!validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha)){
@@ -45,7 +43,6 @@ class usuarioController
         
         req.flash("success","Sua conta foi criada, agora faça o seu login.")
         res.redirect("/usuarios/login")
-    
     }
 
     static async login(req,res){
@@ -56,9 +53,12 @@ class usuarioController
         const usuario = await Usuario.findOne({email})
 
         if(!usuario){
-            req.flash("error","E-mail não encontrado.")
-            res.redirect('/usuarios/login')
-            return
+            req.session.message = {
+                type:"danger",
+                intro:"not found",
+                message:"E-mail não foi encontrado"
+            }
+            res.redirect("/usuarios/login")
         }
 
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)

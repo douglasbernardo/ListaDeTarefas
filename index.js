@@ -50,8 +50,14 @@ app.use(
     },
   }),
 )
-app.use(flash());
 
+app.use((req,res,next)=>{
+  res.locals.message = req.session.message
+  delete req.session.message
+  next()
+})
+
+//app.use(flash());
 // set session to res
 app.use((req, res, next) => {
   // console.log(req.session)
@@ -60,6 +66,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+
 
 app.use('/tarefas',rotasTarefas)
 app.use('/usuarios',rotasUsuarios)
