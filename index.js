@@ -3,6 +3,7 @@ const app = express()
 const session = require("express-session")
 const cookieParser = require("cookie-parser")
 const flash = require("express-flash")
+const env = require("dotenv").config()
 const conn = require("./db/connection")
 
 const FileStore = require("session-file-store")(session)
@@ -30,14 +31,12 @@ app.use(cookieParser("secret"))
 
 app.use(express.static('public'))
 
-require("dotenv").config()
-
 //session middleware
 app.use(
   session({
     name: 'session',
     secret: process.env.SECRET_SESSION,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     store: new FileStore({
       logFn: function () {},
