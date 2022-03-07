@@ -8,7 +8,7 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 
 - [HTML](https://www.w3schools.com/html/)
 - [CSS](https://www.w3schools.com/css/)
-- [BOOTSTRAP](https://bootstrap/)
+- [BOOTSTRAP](https://getbootstrap.com/)
 - [NPM](https://www.npmjs.com/)
 - [NODE .JS](https://nodejs.org/en/)
 - [EXPRESS](https://expressjs.com/pt-br/)
