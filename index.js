@@ -50,15 +50,11 @@ app.use(
     },
   }),
 )
-// flash messages
 app.use(flash());
-
 
 // set session to res
 app.use((req, res, next) => {
   // console.log(req.session)
-  res.locals.session = req.session
-
   if (req.session.usuario) {
     res.locals.session = req.session;
   }
