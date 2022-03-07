@@ -43,7 +43,8 @@ class usuarioController
 
         await usuario.save()
         
-        res.redirect("/tarefas")
+        req.flash("success","Sua conta foi criada, agora faça o seu login.")
+        res.redirect("/usuarios/login")
     
     }
 
@@ -55,7 +56,7 @@ class usuarioController
         const usuario = await Usuario.findOne({email})
 
         if(!usuario){
-            req.flash("success","A senha está incorreta.")
+            req.flash("error","E-mail não encontrado.")
             res.redirect('/usuarios/login')
             return
         }
@@ -63,15 +64,16 @@ class usuarioController
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("success","A senha está incorreta.")
+            req.flash("error","A senha está incorreta.")
             res.redirect('/usuarios/login')
             return
         }
 
         //inicializar a sessão 
         req.session.usuario = usuario.id
+        req.session.data = usuario
 
-        req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
+        req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem significa que está logado
 
         req.session.save(()=>{
             res.redirect("/tarefas")
