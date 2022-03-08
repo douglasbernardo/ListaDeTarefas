@@ -36,14 +36,14 @@ app.use(
   session({
     name: 'session',
     secret: process.env.SECRET_SESSION,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     store: new FileStore({
       logFn: function () {},
       path: require('path').join(require('os').tmpdir(), 'sessions'),
     }),
     cookie: {
-      secure: false,
+      secure: true,
       maxAge: 36000000,
       expires: new Date(Date.now() + 36000000),
       httpOnly:  false,

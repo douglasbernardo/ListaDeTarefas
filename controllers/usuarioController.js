@@ -12,7 +12,7 @@ class usuarioController
     }
 
     static formularioLogin(req,res){
-        res.render("usuarios/login",{layout:false})
+        res.render("usuarios/login")
     }
 
     static async cadastro(req,res){
@@ -41,8 +41,10 @@ class usuarioController
 
         await usuario.save()
         
-        req.flash("success","Sua conta foi criada, agora faça o seu login.")
-        res.redirect("/usuarios/login")
+        req.session.message = {type:"success", message:"Sua conta foi criada, faça o login para acessa-lá"}
+        req.session.save(()=>{
+            res.redirect("/usuarios/login")
+        })
     }
 
     static async login(req,res){
@@ -55,25 +57,30 @@ class usuarioController
         if(!usuario){
             req.session.message = {
                 type:"danger",
-                intro:"not found",
                 message:"E-mail não foi encontrado"
             }
-            res.redirect("/usuarios/login")
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
 
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("error","A senha está incorreta.")
-            res.redirect('/usuarios/login')
-            return
+            req.session.message = {
+                type:"danger",
+                message:"Senha inválida"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
 
         //inicializar a sessão 
         req.session.usuario = usuario.id
         req.session.data = usuario
 
-        req.flash("success",`Bem vindo: ${usuario.nome}`) //se aparecer essa mensagem significa que está logado
+        req.session.message = {type:"success", message:`Bem vindo(a): ${usuario.nome}`}
 
         req.session.save(()=>{
             res.redirect("/tarefas")

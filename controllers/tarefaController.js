@@ -17,8 +17,10 @@ class tarefaController
         const status = false //true=tarefa feita ----- false = tarefa não feita
 
         if(!titulo && !descricao){
-            req.flash("info","this message will be displayed");
-            res.redirect('/tarefas/adicionarTarefa');
+            req.session.message = { type:"danger", message:"Preencha o titulo e a descrição"}
+            req.session.save(()=>{
+                res.redirect("/tarefas/adicionarTarefa")
+            })
         }
         const usuario = await Usuario.findById({_id:ObjectId(req.session.usuario)})
         
@@ -35,9 +37,10 @@ class tarefaController
 
         await dadosTarefa.save()
 
-        req.flash("success","Tarefa adicionada com sucesso")
-
-        res.redirect("/tarefas")
+        req.session.message = { type:"success", message:`Tarefa ${titulo} adicionada com sucesso`}
+        req.session.save(()=>{
+            res.redirect("/tarefas")
+        })
     }
 
     static async minhasTarefas(req,res){
@@ -80,14 +83,16 @@ class tarefaController
         const descricao = req.body.descricao
 
         if(!titulo){
-            req.flash("error",'Preencha o titulo')
-            res.redirect("/tarefas/adicionarTarefa")
-            return
+            req.session.message = { type:"danger", message:"O titulo deve ser preenchido"}
+            req.session.save(()=>{
+                res.redirect("/tarefas/adicionarTarefa")
+            })
         }
         if(!descricao){
-            req.flash("error",'Preencha a descrição')
-            res.redirect("/tarefas/adicionarTarefa")
-            return
+            req.session.message = { type:"danger", message:"A descrição deve ser preenchida"}
+            req.session.save(()=>{
+                res.redirect("/tarefas/adicionarTarefa")
+            })
         }
 
         const tarefa = await Tarefa.findByIdAndUpdate(id)
