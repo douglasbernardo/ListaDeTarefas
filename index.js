@@ -1,8 +1,6 @@
 const express = require('express')
 const app = express()
 const session = require("express-session")
-const cookieParser = require("cookie-parser")
-const flash = require("express-flash")
 const env = require("dotenv").config()
 const conn = require("./db/connection")
 
@@ -27,7 +25,6 @@ app.set("view engine","handlebars")
 app.use(express.urlencoded({extended: true,}),)
 
 app.use(express.json())
-app.use(cookieParser("secret"))
 
 app.use(express.static('public'))
 
@@ -43,7 +40,7 @@ app.use(
       path: require('path').join(require('os').tmpdir(), 'sessions'),
     }),
     cookie: {
-      secure: true,
+      secure: false,
       maxAge: 36000000,
       expires: new Date(Date.now() + 36000000),
       httpOnly:  false,
@@ -57,7 +54,6 @@ app.use((req,res,next)=>{
   next()
 })
 
-//app.use(flash());
 // set session to res
 app.use((req, res, next) => {
   // console.log(req.session)
