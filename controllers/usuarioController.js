@@ -7,8 +7,15 @@ const { ObjectId } = require("mongodb")
 
 class usuarioController
 {
+<<<<<<< HEAD
     static formularioCadastro(req,res){
         res.render("usuarios/cadastro",{layout:false})
+=======
+
+    static formularioCadastro(req,resp)
+    {
+        resp.render("usuarios/cadastro",{layout:false})
+>>>>>>> 5c3c4e25405d14413a5e3ddd2138cf79bee4ff92
     }
 
     static formularioLogin(req,res){
@@ -40,8 +47,16 @@ class usuarioController
         })
 
         await usuario.save()
+<<<<<<< HEAD
         
         req.session.message = {type:"success", message:"Sua conta foi criada, faça o login para acessa-lá"}
+=======
+
+        req.session.usuario = usuario
+
+        req.flash("success",`Bem vindo: ${usuario.nome}`)
+        
+>>>>>>> 5c3c4e25405d14413a5e3ddd2138cf79bee4ff92
         req.session.save(()=>{
             res.redirect("/usuarios/login")
         })
@@ -67,6 +82,7 @@ class usuarioController
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
+<<<<<<< HEAD
             req.session.message = {
                 type:"danger",
                 message:"Senha inválida"
@@ -74,6 +90,11 @@ class usuarioController
             req.session.save(()=>{
                 res.redirect("/usuarios/login")
             })
+=======
+            req.flash("error","A senha está incorreta") 
+            resp.redirect('/usuarios/login')
+            return
+>>>>>>> 5c3c4e25405d14413a5e3ddd2138cf79bee4ff92
         }
 
         //inicializar a sessão 
@@ -94,6 +115,7 @@ class usuarioController
 
     static async removerConta(req,res){
 
+<<<<<<< HEAD
         const uid = req.session.usuario
 
         if(!uid){
@@ -109,6 +131,14 @@ class usuarioController
         }
 
         await Tarefa.deleteMany({"usuario._id": ObjectId(usuario.id)}) //deleta todas as tarefas do usuario logado
+=======
+        const id = req.session.usuario
+
+        if(!id){
+            console.log("ID não foi encontrado")
+            return
+        }
+>>>>>>> 5c3c4e25405d14413a5e3ddd2138cf79bee4ff92
 
         await Usuario.findByIdAndDelete(usuario.id) //deleta a conta do usuario que estava logado
 

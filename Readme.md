@@ -19,6 +19,7 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Cadastro de usuários
 - [x] Login de usuário 
 - [x] Logout de usuário
+- [ ] Edição de usuário
 - [x] Remoção de usuário
 
 ### Features de Tarefas 
@@ -26,3 +27,39 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Remoção de Tarefas
 - [x] Edição de Tarefas
 - [x] Listar todas as tarefas do usuário logado
+
+## Instalação do Projeto
+Para a instalação:
+
+ 1 - Clone o repositório
+
+ 2 - Instale os módulos necessários 
+
+ 3 - Entre na pasta
+ 
+ 4 - Iniciar o servidor
+
+    git clone https://github.com/douglasbernardo/ListaDeTarefas.git
+
+    npm install
+    
+    cd ListaDeTarefas
+    
+    npm run start
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`SECRET_SESSION`
+
+``
+
+
+
+## Autor
+
+- [@DouglasBernardo](https://github.com/douglasbernardo)
+
+
+

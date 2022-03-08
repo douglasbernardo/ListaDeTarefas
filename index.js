@@ -56,13 +56,12 @@ app.use((req,res,next)=>{
 
 // set session to res
 app.use((req, res, next) => {
-  // console.log(req.session)
-  if (req.session.usuario) {
+  // console.log(req.session
+  if(req.session.usuario) {
     res.locals.session = req.session;
   }
   next();
 });
-
 
 app.use('/tarefas',rotasTarefas)
 app.use('/usuarios',rotasUsuarios)
