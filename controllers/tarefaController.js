@@ -71,18 +71,20 @@ class tarefaController
     static async formularioEdicao(req,res){
         const id = req.params.id
 
-        const usuarioTarefa = await Tarefa.findOne({'usuario._id': ObjectId(req.session.usuario)})
-
         const tarefa = await Tarefa.findOne({_id:id}).lean()
+
+        /*
+            Caso o id da tarefa a ser editada não pertença ao usuario logado, 
+            ele não conseguira editar essa tarefa
+        */
+        
+        if(tarefa.usuario._id.toString() !== req.session.usuario){ 
+            res.render("erros/httpErros",{code:203})
+            return
+        }
 
         res.render("tarefas/editarTarefa",{tarefa:tarefa})
 
-        // if(id !== usuarioTarefa.usuario._id.toString()){
-        //     console.log("o id não pertence à você")
-        //     return
-        // }
-
-        // console.log(usuarioTarefa.usuario._id.toString()
     }
 
     static async editar(req,res){
