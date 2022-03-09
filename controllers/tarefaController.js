@@ -71,9 +71,18 @@ class tarefaController
     static async formularioEdicao(req,res){
         const id = req.params.id
 
+        const usuarioTarefa = await Tarefa.findOne({'usuario._id': ObjectId(req.session.usuario)})
+
         const tarefa = await Tarefa.findOne({_id:id}).lean()
 
         res.render("tarefas/editarTarefa",{tarefa:tarefa})
+
+        if(id !== usuarioTarefa.usuario._id.toString()){
+            console.log("o id não pertence à você")
+            return
+        }
+
+        // console.log(usuarioTarefa.usuario._id.toString()
     }
 
     static async editar(req,res){
@@ -85,13 +94,13 @@ class tarefaController
         if(!titulo){
             req.session.message = { type:"danger", message:"O titulo deve ser preenchido"}
             req.session.save(()=>{
-                res.redirect("/tarefas/adicionarTarefa")
+                res.redirect("/tarefas/editar")
             })
         }
         if(!descricao){
             req.session.message = { type:"danger", message:"A descrição deve ser preenchida"}
             req.session.save(()=>{
-                res.redirect("/tarefas/adicionarTarefa")
+                res.redirect("/tarefas/editar")
             })
         }
 
