@@ -1,36 +1,34 @@
 
 const Usuario = require("../models/Usuario")
+const Tarefa = require("../models/Tarefa")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
 const bcrypt = require("bcrypt")
-
+const { ObjectId } = require("mongodb")
 
 class usuarioController
 {
 
-    static formularioCadastro(req,resp)
-    {
-        resp.render("usuarios/cadastro",{layout:false})
-    }
-    static formularioLogin(req,resp)
-    {
-        resp.render("usuarios/login",{layout:false})
+    static formularioCadastro(req,res){
+        res.render("usuarios/cadastro",{layout:false})
     }
 
-    static async cadastro(req,resp)
-    {
+    static formularioLogin(req,res){
+        res.render("usuarios/login")
+    }
+
+    static async cadastro(req,res){
         const {nome,email,senha,confirmarSenha} = req.body
 
-        if(!validarUsuarioCadastro(req,resp,nome,email,senha,confirmarSenha)){
-            console.log("Alguma coisa de errado aconteceu!")
+        if(!validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha)){
+            console.log("Não foi possivel fazer o seu cadastro")
             return
         }
 
-        let usuarioEmail = await Usuario.findOne({email:email})
+        let usuarioEmail = await Usuario.findOne({email})
 
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
-            resp.redirect("/usuarios/cadastro")
-            return
+            res.redirect("/usuarios/cadastro")
         }
 
         //fazer um hash da senha
@@ -43,64 +41,73 @@ class usuarioController
         })
 
         await usuario.save()
-
-        req.session.usuario = usuario
-
-        req.flash("success",`Bem vindo: ${usuario.nome}`)
         
+        req.session.message = {type:"success", message:"Sua conta foi criada, faça o login para acessa-lá"}
+
         req.session.save(()=>{
-            resp.redirect("/tarefas")
+            res.redirect("/usuarios/login")
         })
     }
 
-    static async login(req,resp){
+    static async login(req,res){
 
         const {email,senha} = req.body
-        validarUsuarioLogin(req,resp,email,senha)
+        validarUsuarioLogin(req,res,email,senha)
 
         const usuario = await Usuario.findOne({email})
 
         if(!usuario){
-            req.flash("error","E-mail não encontrado")
-            resp.redirect('/usuarios/login')
-            return
+            req.session.message = { type:"danger", message:"E-mail não foi encontrado"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
 
         const compararSenha = bcrypt.compareSync(senha,usuario.senha)
         //comparar senha que o usuario digitou com o hash cadastrado no banco
         if(!compararSenha){
-            req.flash("error","A senha está incorreta") 
-            resp.redirect('/usuarios/login')
-            return
+            req.session.message = {type:"danger", message:"Senha inválida"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
 
         //inicializar a sessão 
         req.session.usuario = usuario.id
+        req.session.data = usuario
 
-        req.flash("success",`Bem vindo de novo: ${usuario.nome}`) //se aparecer essa mensagem signifaca que está logado
+        req.session.message = {type:"success", message:`Bem vindo(a): ${usuario.nome}`}
 
         req.session.save(()=>{
-            resp.redirect("/tarefas")
+            res.redirect("/tarefas")
         })
     }
 
-    static logout(req,resp){
+    static logout(req,res){
         req.session.destroy()
-        resp.redirect("/usuarios/login")
+        res.redirect("/usuarios/login")
     }
 
-    static async removerConta(req,resp){
+    static async removerConta(req,res){
+        const uid = req.session.usuario
 
-        const id = req.session.usuario
+        if(!uid){
+            res.render("erros/httpErros",{code:401})
+            return
+        } 
 
-        if(!id){
-            console.log("ID não foi encontrado")
+        const usuario = await Usuario.findById(uid)
+
+        if(uid !== usuario.id){
+            res.render("erros/httpErros",{code:401})
             return
         }
 
-        const usuario = await Usuario.findByIdAndDelete(id)
+        await Tarefa.deleteMany({"usuario._id": ObjectId(usuario.id)}) //deleta todas as tarefas do usuario logado
 
-        resp.redirect("/usuarios/login")
+        await Usuario.findByIdAndDelete(usuario.id) //deleta a conta do usuario que estava logado
+
+        res.redirect("/usuarios/login")
     }
 }
 

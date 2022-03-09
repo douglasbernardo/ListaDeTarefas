@@ -2,34 +2,52 @@
 <html lang="en">
     <head>
         {{>head}}
-        <link rel="stylesheet" href="/css/usuarios.css">
+        <link rel="stylesheet" href="/css/util.css">
+        <link rel="stylesheet" href="/css/main.css">
         <title>Document</title>
     </head>
     <body>
-        <h1>Login De Usuário</h1>
-        <div class="container w-25">
-            {{#if messages.error}}
-                <div class="alert alert-danger" role="alert">
-                    <p style="text-align: center;">{{messages.error}}</p>
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100">
+                    <form action="/usuarios/login" method="post" class="login100-form validate-form p-l-55 p-r-55 p-t-178">
+                        <span class="login100-form-title">
+                            Login
+                        </span>
+
+                        {{#if message}}
+                            <div class="alert alert-{{message.type}}" role="alert">
+                                <p style="text-align: center;">{{message.message}}</p>
+                            </div>
+                        {{/if}}
+
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                            <input class="input100" type="text" name="email" placeholder="E-mail">
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-16">
+                            <input class="input100" type="password" name="senha" placeholder="Senha">
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+
+                        <div class="flex-col-c p-t-170 p-b-40">
+                            <span class="txt1 p-b-9">
+                                Não é cadastrado?
+                            </span>
+
+                            <a href="/usuarios/cadastro" class="txt3">
+                                Cadastre-se
+                            </a>
+                        </div>
+                    </form>
                 </div>
-            {{/if}}
-            <form action="/usuarios/login" method="post">
-                <div class="mb-3">
-                    <label for="Email" class="form-label">E-mail:</label>
-                    <input type="email" class="form-control" name="email" placeholder="Seu E-mail" autocomplete="off">
-                </div>
-                <div class="mb-3">
-                    <label for="senha" class="form-label">Senha:</label>
-                    <input type="password" class="form-control" name="senha" placeholder="Coloque um senha segura" autocomplete="off">
-                </div>
-                <button type="submit" class="btn btn-outline-primary">
-                    Logar
-                </button>
-                    <a href="/usuarios/login">
-                    <button type="button" class="btn btn-outline-primary">Voltar</button>
-                </a>
-                <p>Não é cadastrado? <a href="/usuarios/cadastro">Cadastre-se</a></p>
-            </form>
-        </div>
+            </div>
+	    </div>
     </body>
 </html>
