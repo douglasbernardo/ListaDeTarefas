@@ -77,10 +77,10 @@ class tarefaController
 
         res.render("tarefas/editarTarefa",{tarefa:tarefa})
 
-        if(id !== usuarioTarefa.usuario._id.toString()){
-            console.log("o id não pertence à você")
-            return
-        }
+        // if(id !== usuarioTarefa.usuario._id.toString()){
+        //     console.log("o id não pertence à você")
+        //     return
+        // }
 
         // console.log(usuarioTarefa.usuario._id.toString()
     }
