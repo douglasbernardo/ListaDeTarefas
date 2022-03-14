@@ -8,9 +8,9 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 
 - [HTML](https://www.w3schools.com/html/)
 - [CSS](https://www.w3schools.com/css/)
-- [BOOTSTRAP](https://bootstrap/)
+- [BOOTSTRAP](https://getbootstrap.com/)
 - [NPM](https://www.npmjs.com/)
-- [NODE .JS](https://nodejs.org/en/)
+- [NODE.JS](https://nodejs.org/en/)
 - [EXPRESS](https://expressjs.com/pt-br/)
 
 ## ✅ Todas as Features
@@ -19,7 +19,6 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Cadastro de usuários
 - [x] Login de usuário 
 - [x] Logout de usuário
-- [ ] Edição de usuário
 - [x] Remoção de usuário
 
 ### Features de Tarefas 
@@ -31,13 +30,13 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 ## Instalação do Projeto
 Para a instalação:
 
- 1- Clone o repositório
+ 1 - Clone o repositório
 
- 2- Instale os módulos necessários 
+ 2 - Instale os módulos necessários 
 
- 3- Startar o servidor
+ 3 - Entre na pasta
  
- 4 - Entre na pasta
+ 4 - Iniciar o servidor
 
     git clone https://github.com/douglasbernardo/ListaDeTarefas.git
 
@@ -46,5 +45,20 @@ Para a instalação:
     cd ListaDeTarefas
     
     npm run start
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`SECRET_SESSION`
+
+``
+
+
+
+## Autor
+
+- [@DouglasBernardo](https://github.com/douglasbernardo)
+
 
 

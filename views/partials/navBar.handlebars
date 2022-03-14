@@ -3,8 +3,15 @@
         <a class="navbar-brand" href="/tarefas">
             Minhas Tarefas
         </a>
-        <a href="/usuarios/logout"><i style="color: white; font-size:25px; margin-left: 47em;" class="fas fa-sign-out-alt"></i></a>
-        <p style="color: aliceblue; padding:1px; margin:12px">Ou</p>
-        <a href="/usuarios/removerConta">Remover Conta</a>
+      <div class="btn-group">
+        <img src="imgsAndIcons/gear.png" style="height:50px;cursor:pointer" alt="" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1" style="color: aquamarine;">
+            <li style="color:blue;text-align:center">{{session.data.nome}}</li>
+            <li><hr class="dropdown-divider"></li>
+            <li style="text-decoration: underline;"><a class="dropdown-item" href="/usuarios/logout">Sair</a></li>
+             <li><hr class="dropdown-divider"></li>
+            <li style="text-decoration: underline;"><a class="dropdown-item" href="/usuarios/removerConta">Deletar sua Conta</a></li>
+        </ul>
+    </div>
     </div>
 </nav>

@@ -1,36 +1,60 @@
 module.exports = {
-    validarUsuarioCadastro(req,resp,nome,email,senha,confirmarSenha){
-        
+    validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha){
+
         if(!nome && !email && !senha && !confirmarSenha){
-            req.flash('error',"Os dados são obrigatórios")
-            resp.redirect("/usuarios/cadastro")
-            return
+            req.session.message = {
+                type:"danger",
+                message:"Preencha os dados corretamente"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
         if(!nome){
-            req.flash('error',"O nome é obrigatório")
-            resp.redirect("/usuarios/cadastro")
-            return
+            req.session.message = {
+                type:"danger",
+                message:"O nome é obrigatório"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
         if(!email){
-            req.flash('error',"O e-mail é obrigatório")
-            resp.redirect("/usuarios/cadastro")
-            return
+            req.session.message = {
+                type:"danger",
+                message:"E-mail é obrigatório"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
         if(!senha){
-            req.flash('error',"A senha é obrigatório")
-            resp.redirect("/usuarios/cadastro")
-            return
+            req.session.message = {
+                type:"danger",
+                message:"Senha é obrigatório"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
         if(!confirmarSenha){
-            req.flash('error',"A confirmação de senha é obrigatório")
-            resp.redirect("/usuarios/cadastro")
-            return
+            req.session.message = {
+                type:"danger",
+                message:"Confirmação de senha é obrigatório"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
 
         if(senha !== confirmarSenha){
-            req.flash('error',"As senhas não são iguais")
-            resp.redirect("/usuarios/cadastro")
-            return
+            req.session.message = {
+                type:"danger",
+                message:"As senhas não batem"
+            }
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
 
         //validação do email
@@ -38,32 +62,39 @@ module.exports = {
             //validação do email com regex
             let regex_validation = /^([a-z]){1,}([a-z0-9._-]){1,}([@]){1}([a-z]){2,}([.]){1}([a-z]){2,}([.]?){1}([a-z]?){2,}$/i;
             if(!regex_validation.test(email)){
-                req.flash('error',"E-mail não é válido")
-                resp.redirect("/usuarios/cadastro")
+                req.session.message = {type:"danger", message:"E-mail inválido"}
+                  req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
             }
         }else{
-            req.flash('error',"E-mail não pode ser vazio")
-            resp.redirect("/usuarios/cadastro")
+            req.session.message = {type:"danger", message:"E-mail não pode ser vazio"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/cadastro")
+            })
         }
 
         return true
     },
 
-    validarUsuarioLogin(req,resp,email,senha){
+    validarUsuarioLogin(req,res,email,senha){
         if(!email && !senha){
-            req.flash('error',"Os dados são obrigatórios")
-            resp.redirect("/usuarios/login")
-            return
+            req.session.message = { type:"danger", message:"Preencha os dados corretamente"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
         if(!email){
-            req.flash('error',"O e-mail é obrigatório")
-            resp.redirect("/usuarios/login")
-            return
+            req.session.message = {type:"danger", message:"E-mail precisa ser preenchido"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
         if(!senha){
-            req.flash('error',"A senha é obrigatório")
-            resp.redirect("/usuarios/login")
-            return
+            req.session.message = {type:"danger", message:"Senha precisa ser preenchida"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
 
         //validação do email
@@ -71,12 +102,16 @@ module.exports = {
             //validação do email com regex
             let regex_validation = /^([a-z]){1,}([a-z0-9._-]){1,}([@]){1}([a-z]){2,}([.]){1}([a-z]){2,}([.]?){1}([a-z]?){2,}$/i;
             if(!regex_validation.test(email)){
-                req.flash('error',"E-mail não é válido")
-                resp.redirect("/usuarios/login")
+                req.session.message = {type:"danger",message:"E-mail não é válido"}
+                req.session.save(()=>{
+                    res.redirect("/usuarios/login")
+                })
             }
         }else{
-            req.flash('error',"E-mail não pode ser vazio")
-            resp.redirect("/usuarios/login")
+            req.session.message = {type:"danger", message:"E-mail precisa ser preenchido"}
+            req.session.save(()=>{
+                res.redirect("/usuarios/login")
+            })
         }
 
         return true

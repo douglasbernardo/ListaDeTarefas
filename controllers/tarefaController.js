@@ -7,34 +7,21 @@ const Usuario = require("../models/Usuario")
 
 class tarefaController
 {
-    static mostraFormulario(req,resp){
-        resp.render("tarefas/novaTarefa",{layout:false})
+    static mostraFormulario(req,res){
+        res.render("tarefas/novaTarefa",{layout:false})
     }
 
-    static async adicionarTarefa(req,resp){
+    static async adicionarTarefa(req,res){
 
         const {titulo,descricao} = req.body
         const status = false //true=tarefa feita ----- false = tarefa não feita
-        
+
         if(!titulo && !descricao){
-            req.flash("error",'Preencha os dados corretamente')
-            resp.redirect("/tarefas/adicionarTarefa")
-            return
+            req.session.message = { type:"danger", message:"Preencha o titulo e a descrição"}
+            req.session.save(()=>{
+                res.redirect("/tarefas/adicionarTarefa")
+            })
         }
-
-        if(!titulo){
-            req.flash("error",'Preecha o titulo')
-
-            resp.redirect("/tarefas/adicionarTarefa")
-            return
-        }
-        if(!descricao){
-            req.flash("error",'Preencha a descrição')
-
-            resp.redirect("/tarefas/adicionarTarefa")
-            return
-        }
-
         const usuario = await Usuario.findById({_id:ObjectId(req.session.usuario)})
         
         const dadosTarefa = new Tarefa({
@@ -50,26 +37,26 @@ class tarefaController
 
         await dadosTarefa.save()
 
-        req.flash("success",`Tarefa: ${titulo}, foi adicionada com sucesso`)
-
-        resp.redirect('/tarefas')
+        req.session.message = { type:"success", message:`Tarefa ${titulo} adicionada com sucesso`}
+        req.session.save(()=>{
+            res.redirect("/tarefas")
+        })
     }
 
-    static async minhasTarefas(req,resp){
-
+    static async minhasTarefas(req,res){
         const tarefas = await Tarefa.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
-        resp.render('tarefas/tarefas',{tarefas})
+        res.render('tarefas/tarefas',{tarefas})
     }
 
-    static async excluirTarefa(req,resp){
+    static async excluirTarefa(req,res){
         const id = req.params.id
         
         await Tarefa.deleteOne({_id : id})
 
-        resp.redirect("/tarefas")
+        res.redirect("/tarefas")
     }
 
-    static async tarefaFeita(req,resp){
+    static async tarefaFeita(req,res){
         const id = req.params.id
 
         const tarefa = await Tarefa.findByIdAndUpdate(id)
@@ -78,32 +65,45 @@ class tarefaController
 
         tarefa.save() //salvar alteração
         
-        resp.redirect("/tarefas")
+        res.redirect("/tarefas")
     }
 
-    static async formularioEdicao(req,resp){
+    static async formularioEdicao(req,res){
         const id = req.params.id
 
         const tarefa = await Tarefa.findOne({_id:id}).lean()
 
-        resp.render("tarefas/editarTarefa",{tarefa:tarefa})
+        /*
+            Caso o id da tarefa a ser editada não pertença ao usuario logado, 
+            ele não conseguira editar essa tarefa
+        */
+        
+        if(tarefa.usuario._id.toString() !== req.session.usuario){ 
+            res.render("erros/httpErros",{code:203})
+            return
+        }
+
+        res.render("tarefas/editarTarefa",{tarefa:tarefa})
+
     }
 
-    static async editar(req,resp){
+    static async editar(req,res){
 
         const id = req.body.id
         const titulo = req.body.titulo
         const descricao = req.body.descricao
 
         if(!titulo){
-            req.flash("error",'Preencha o titulo')
-            resp.redirect("/tarefas/adicionarTarefa")
-            return
+            req.session.message = { type:"danger", message:"O titulo deve ser preenchido"}
+            req.session.save(()=>{
+                res.redirect("/tarefas/editar")
+            })
         }
         if(!descricao){
-            req.flash("error",'Preencha a descrição')
-            resp.redirect("/tarefas/adicionarTarefa")
-            return
+            req.session.message = { type:"danger", message:"A descrição deve ser preenchida"}
+            req.session.save(()=>{
+                res.redirect("/tarefas/editar")
+            })
         }
 
         const tarefa = await Tarefa.findByIdAndUpdate(id)
@@ -114,7 +114,7 @@ class tarefaController
 
         tarefa.save()
 
-        resp.redirect("/tarefas")
+        res.redirect("/tarefas")
     }
 }
 

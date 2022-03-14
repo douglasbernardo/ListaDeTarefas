@@ -13,9 +13,9 @@
                 <button class="btn btn-outline-danger mb-2">Adicionar Tarefa</button>    
             </a>
             <ol class="list-group list-group-numbered">
-                {{#if messages.success}}
-                    <div class="alert alert-success" role="alert">
-                        <p style="text-align: center;">{{messages.success}}</p>
+                {{#if message}}
+                    <div class="alert alert-{{message.type}}" role="alert">
+                        <p style="text-align: center;">{{message.message}}</p>
                     </div>
                 {{/if}}
                 {{#if session.usuario}}

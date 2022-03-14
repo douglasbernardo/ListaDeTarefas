@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const session = require("express-session")
-const flash = require("express-flash")
+const env = require("dotenv").config()
 const conn = require("./db/connection")
 
 const FileStore = require("session-file-store")(session)
@@ -28,49 +28,53 @@ app.use(express.json())
 
 app.use(express.static('public'))
 
-require("dotenv").config()
-
 //session middleware
 app.use(
   session({
     name: 'session',
     secret: process.env.SECRET_SESSION,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     store: new FileStore({
       logFn: function () {},
       path: require('path').join(require('os').tmpdir(), 'sessions'),
     }),
     cookie: {
       secure: false,
-      maxAge: 3600000,
-      expires: new Date(Date.now() + 3600000),
-      httpOnly: true,
+      maxAge: 36000000,
+      expires: new Date(Date.now() + 36000000),
+      httpOnly:  false,
     },
   }),
 )
 
-// flash messages
-app.use(flash());
+app.use((req,res,next)=>{
+  res.locals.message = req.session.message
+  delete req.session.message
+  next()
+})
 
 // set session to res
-app.use((req, resp, next) => {
-  // console.log(req.session)
+app.use((req, res, next) => {
+  // console.log(req.session
   if(req.session.usuario) {
-    resp.locals.session = req.session;
+    res.locals.session = req.session;
   }
-
   next();
 });
 
 app.use('/tarefas',rotasTarefas)
-
 app.use('/usuarios',rotasUsuarios)
-
 
 app.use(function(req, res, next) {
   res.render("erros/httpErros",{code:404})
   return
+});
+
+
+app.get(function(req, res, next) {
+  res.redirect("/usuarios/cadastro")
+  next()
 });
 
 app.listen(2000,console.log("servidor rodando"))
