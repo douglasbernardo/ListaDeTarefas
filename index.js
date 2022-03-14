@@ -68,4 +68,9 @@ app.use('/tarefas',rotasTarefas)
 app.use('/usuarios',rotasUsuarios)
 
 
+app.use(function(req, res, next) {
+  res.render("erros/httpErros",{code:404})
+  return
+});
+
 app.listen(2000,console.log("servidor rodando"))
