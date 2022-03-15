@@ -66,15 +66,17 @@ app.use((req, res, next) => {
 app.use('/tarefas',rotasTarefas)
 app.use('/usuarios',rotasUsuarios)
 
+app.get("/",(req,res,next)=>{
+  res.redirect("/usuarios/cadastro")
+  next()
+})
+
+
 app.use(function(req, res, next) {
   res.render("erros/httpErros",{code:404})
   return
 });
 
 
-app.get(function(req, res, next) {
-  res.redirect("/usuarios/cadastro")
-  next()
-});
 
 app.listen(2000,console.log("servidor rodando"))
