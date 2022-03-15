@@ -63,10 +63,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.
-
 app.use('/tarefas',rotasTarefas)
 app.use('/usuarios',rotasUsuarios)
+
+app.get("/",(req,res,next)=>{
+  res.redirect("/usuarios/cadastro")
+  next()
+})
+
 
 app.use(function(req, res, next) {
   res.render("erros/httpErros",{code:404})
