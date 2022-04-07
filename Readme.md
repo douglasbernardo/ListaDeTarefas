@@ -1,6 +1,6 @@
 <h1 align="center">Lista De Tarefas</h1>
 
->Lista de Tarefas, Anote tarefas que você deseja fazer e o horário que elas serão feitas e o sistema irá te enviar um e-mail avisando desta tarefa.
+>Projeto de estudo, uma lista de tarefas para anotar todas as tarefas que o usuário precisa fazer no dia a dia.
 
 ## 🛠 Tecnologias
 
