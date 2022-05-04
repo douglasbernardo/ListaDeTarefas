@@ -1,14 +1,13 @@
 const express = require('express')
 const app = express()
 const session = require("express-session")
-const env = require("dotenv").config()
 const conn = require("./db/connection")
 
 const FileStore = require("session-file-store")(session)
 
 //rotas
-const rotasTarefas = require("./rotas/rotasTarefas")
-const rotasUsuarios = require("./rotas/rotasUsuarios")
+const TaskRoutes = require("./routes/TaskRoutes")
+const UserRoutes = require("./routes/UserRoutes")
 
 //HANDLEBARS SETTINGS
 const handleBars = require("express-handlebars")
@@ -27,6 +26,9 @@ app.use(express.urlencoded({extended: true,}),)
 app.use(express.json())
 
 app.use(express.static('public'))
+
+//envrequire("dotenv").config()
+require("dotenv").config()
 
 //session middleware
 app.use(
@@ -63,8 +65,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/tarefas',rotasTarefas)
-app.use('/usuarios',rotasUsuarios)
+app.use('/tarefas',TaskRoutes)
+app.use('/usuarios',UserRoutes)
 
 app.get("/",(req,res,next)=>{
   res.redirect("/usuarios/cadastro")

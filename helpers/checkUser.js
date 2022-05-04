@@ -1,5 +1,5 @@
 module.exports = {
-    usuarioAuth(req,res,next){
+    userAuth(req,res,next){
         const usuario = req.session.usuario
 
         if(!usuario){

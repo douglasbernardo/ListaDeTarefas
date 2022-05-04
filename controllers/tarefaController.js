@@ -1,9 +1,9 @@
 
 const { ObjectId } = require("mongodb")
 
-const Tarefa = require("../models/Tarefa")
+const Tarefa = require("../models/Task")
 
-const Usuario = require("../models/Usuario")
+const Usuario = require("../models/User")
 
 class tarefaController
 {

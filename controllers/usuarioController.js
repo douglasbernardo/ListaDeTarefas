@@ -1,7 +1,7 @@
 
-const Usuario = require("../models/Usuario")
-const Tarefa = require("../models/Tarefa")
-const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validacaoUsuario")
+const Usuario = require("../models/User")
+const Tarefa = require("../models/Task")
+const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validateUser")
 const bcrypt = require("bcrypt")
 const { ObjectId } = require("mongodb")
 
