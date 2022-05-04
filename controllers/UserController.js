@@ -1,5 +1,5 @@
 
-const Usuario = require("../models/User")
+const User = require("../models/User")
 const Tarefa = require("../models/Task")
 const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validateUser")
 const bcrypt = require("bcrypt")
@@ -8,15 +8,15 @@ const { ObjectId } = require("mongodb")
 class usuarioController
 {
 
-    static formularioCadastro(req,res){
+    static formSignUp(req,res){
         res.render("usuarios/cadastro",{layout:false})
     }
 
-    static formularioLogin(req,res){
+    static formLogin(req,res){
         res.render("usuarios/login")
     }
 
-    static async cadastro(req,res){
+    static async signUp(req,res){
         const {nome,email,senha,confirmarSenha} = req.body
 
         if(!validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha)){
@@ -111,4 +111,4 @@ class usuarioController
     }
 }
 
-module.exports = usuarioController
+module.exports = UserController

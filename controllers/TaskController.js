@@ -7,11 +7,11 @@ const Usuario = require("../models/User")
 
 class tarefaController
 {
-    static mostraFormulario(req,res){
+    static newTaskForm(req,res){
         res.render("tarefas/novaTarefa",{layout:false})
     }
 
-    static async adicionarTarefa(req,res){
+    static async addTask(req,res){
 
         const {titulo,descricao} = req.body
         const status = false //true=tarefa feita ----- false = tarefa não feita
@@ -43,12 +43,12 @@ class tarefaController
         })
     }
 
-    static async minhasTarefas(req,res){
+    static async myTasks(req,res){
         const tarefas = await Tarefa.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
         res.render('tarefas/tarefas',{tarefas})
     }
 
-    static async excluirTarefa(req,res){
+    static async deleteTask(req,res){
         const id = req.params.id
         
         await Tarefa.deleteOne({_id : id})
@@ -56,7 +56,7 @@ class tarefaController
         res.redirect("/tarefas")
     }
 
-    static async tarefaFeita(req,res){
+    static async DoneTask(req,res){
         const id = req.params.id
 
         const tarefa = await Tarefa.findByIdAndUpdate(id)
@@ -68,7 +68,7 @@ class tarefaController
         res.redirect("/tarefas")
     }
 
-    static async formularioEdicao(req,res){
+    static async formEdit(req,res){
         const id = req.params.id
 
         const tarefa = await Tarefa.findOne({_id:id}).lean()
@@ -87,7 +87,7 @@ class tarefaController
 
     }
 
-    static async editar(req,res){
+    static async editTask(req,res){
 
         const id = req.body.id
         const titulo = req.body.titulo
@@ -118,4 +118,4 @@ class tarefaController
     }
 }
 
-module.exports = tarefaController
+module.exports = TaskController

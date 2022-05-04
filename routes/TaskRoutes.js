@@ -1,16 +1,16 @@
 
 const router = require("express").Router()
 
-const tarefaController = require("../controllers/tarefaController")
+const TaskController = require("../controllers/TaskController")
 
 const checkUser = require("../helpers/checkUser").userAuth
 
-router.get("",checkUser,tarefaController.minhasTarefas)
-router.get("/adicionarTarefa",checkUser,tarefaController.mostraFormulario)
-router.post("/adicionarTarefa",checkUser,tarefaController.adicionarTarefa)
-router.post("/excluir/:id",checkUser,tarefaController.excluirTarefa)
-router.get("/editar/:id",checkUser,tarefaController.formularioEdicao)
-router.post("/editar",checkUser,tarefaController.editar)
-router.post("/done/:id",checkUser,tarefaController.tarefaFeita)
+router.get("",checkUser,TaskController.myTasks)
+router.get("/adicionarTarefa",checkUser,TaskController.newTaskForm)
+router.post("/adicionarTarefa",checkUser,TaskController.addTask)
+router.post("/excluir/:id",checkUser,TaskController.deleteTask)
+router.get("/editar/:id",checkUser,TaskController.formEdit)
+router.post("/editar",checkUser,TaskController.editTask)
+router.post("/done/:id",checkUser,TaskController.DoneTask)
 
 module.exports = router
