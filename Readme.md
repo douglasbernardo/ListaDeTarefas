@@ -12,7 +12,7 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [NPM](https://www.npmjs.com/)
 - [NODE.JS](https://nodejs.org/en/)
 - [EXPRESS](https://expressjs.com/pt-br/)
-
+- [MONGO DB]
 ## ✅ Todas as Features
 
 ### Features de Usuários 
