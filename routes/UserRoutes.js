@@ -9,6 +9,6 @@ router.post("/login",UserController.login)
 
 router.get("/logout",UserController.logout)
 
-router.get("/removerConta",UserController.removerConta)
+router.get("/removerConta",UserController.deleteMyAccount)
 
 module.exports = router

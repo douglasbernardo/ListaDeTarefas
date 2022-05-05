@@ -88,7 +88,7 @@ class usuarioController
         res.redirect("/usuarios/login")
     }
 
-    static async removerConta(req,res){
+    static async deleteMyAccount(req,res){
         const uid = req.session.usuario
 
         if(!uid){
