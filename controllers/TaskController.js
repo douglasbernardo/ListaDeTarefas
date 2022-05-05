@@ -1,14 +1,14 @@
 
 const { ObjectId } = require("mongodb")
 
-const Tarefa = require("../models/Task")
+const Task = require("../models/Task")
 
-const Usuario = require("../models/User")
+const User = require("../models/User")
 
-class tarefaController
+class TaskController
 {
     static newTaskForm(req,res){
-        res.render("tarefas/novaTarefa",{layout:false})
+        res.render("tasks/newTask",{layout:false})
     }
 
     static async addTask(req,res){
@@ -22,9 +22,9 @@ class tarefaController
                 res.redirect("/tarefas/adicionarTarefa")
             })
         }
-        const usuario = await Usuario.findById({_id:ObjectId(req.session.usuario)})
+        const usuario = await User.findById({_id:ObjectId(req.session.usuario)})
         
-        const dadosTarefa = new Tarefa({
+        const dadosTarefa = new Task({
             titulo,
             descricao,
             status,
@@ -44,14 +44,14 @@ class tarefaController
     }
 
     static async myTasks(req,res){
-        const tarefas = await Tarefa.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
-        res.render('tarefas/tarefas',{tarefas})
+        const tarefas = await Task.find({'usuario._id': ObjectId(req.session.usuario)}).lean()
+        res.render('tasks/tasks',{tarefas})
     }
 
     static async deleteTask(req,res){
         const id = req.params.id
         
-        await Tarefa.deleteOne({_id : id})
+        await Task.deleteOne({_id : id})
 
         res.redirect("/tarefas")
     }
@@ -59,7 +59,7 @@ class tarefaController
     static async DoneTask(req,res){
         const id = req.params.id
 
-        const tarefa = await Tarefa.findByIdAndUpdate(id)
+        const tarefa = await Task.findByIdAndUpdate(id)
 
         tarefa.status = true //tarefa foi feita
 
@@ -71,7 +71,7 @@ class tarefaController
     static async formEdit(req,res){
         const id = req.params.id
 
-        const tarefa = await Tarefa.findOne({_id:id}).lean()
+        const tarefa = await Task.findOne({_id:id}).lean()
 
         /*
             Caso o id da tarefa a ser editada não pertença ao usuario logado, 
@@ -79,11 +79,11 @@ class tarefaController
         */
         
         if(tarefa.usuario._id.toString() !== req.session.usuario){ 
-            res.render("erros/httpErros",{code:203})
+            res.render("errors/httpErrors",{code:203})
             return
         }
 
-        res.render("tarefas/editarTarefa",{tarefa:tarefa})
+        res.render("tasks/editTask",{tarefa:tarefa})
 
     }
 
@@ -106,7 +106,7 @@ class tarefaController
             })
         }
 
-        const tarefa = await Tarefa.findByIdAndUpdate(id)
+        const tarefa = await Task.findByIdAndUpdate(id)
 
         tarefa.titulo = titulo
 

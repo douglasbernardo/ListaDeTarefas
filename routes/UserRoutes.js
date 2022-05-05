@@ -2,7 +2,7 @@
 const router = require("express").Router()
 const UserController = require("../controllers/UserController")
 
-router.get("/cadastro",UserController.formularioSignUp)
+router.get("/cadastro",UserController.formSignUp)
 router.post("/cadastro",UserController.signUp)
 router.get("/login",UserController.formLogin)
 router.post("/login",UserController.login)

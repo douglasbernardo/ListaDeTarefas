@@ -1,5 +1,5 @@
 module.exports = {
-    validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha){
+    validateSignUpUser(req,res,nome,email,senha,confirmarSenha){
 
         if(!nome && !email && !senha && !confirmarSenha){
             req.session.message = {
@@ -77,7 +77,7 @@ module.exports = {
         return true
     },
 
-    validarUsuarioLogin(req,res,email,senha){
+    validateUserLogin(req,res,email,senha){
         if(!email && !senha){
             req.session.message = { type:"danger", message:"Preencha os dados corretamente"}
             req.session.save(()=>{

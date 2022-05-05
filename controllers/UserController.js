@@ -1,30 +1,30 @@
 
 const User = require("../models/User")
-const Tarefa = require("../models/Task")
-const { validarUsuarioCadastro, validarUsuarioLogin } = require("../helpers/validateUser")
+const Task = require("../models/Task")
+const { validateUserLogin, validateSignUpUser } = require("../helpers/validateUser")
 const bcrypt = require("bcrypt")
 const { ObjectId } = require("mongodb")
 
-class usuarioController
+class UserController
 {
 
     static formSignUp(req,res){
-        res.render("usuarios/cadastro",{layout:false})
+        res.render("users/signUpForm",{layout:false})
     }
 
     static formLogin(req,res){
-        res.render("usuarios/login")
+        res.render("users/loginForm")
     }
 
     static async signUp(req,res){
         const {nome,email,senha,confirmarSenha} = req.body
 
-        if(!validarUsuarioCadastro(req,res,nome,email,senha,confirmarSenha)){
+        if(!validateSignUpUser(req,res,nome,email,senha,confirmarSenha)){
             console.log("Não foi possivel fazer o seu cadastro")
             return
         }
 
-        let usuarioEmail = await Usuario.findOne({email})
+        let usuarioEmail = await User.findOne({email})
 
         if(usuarioEmail){
             req.flash("error","E-mail já cadastrado")
@@ -34,7 +34,7 @@ class usuarioController
         //fazer um hash da senha
         const senhaHash = bcrypt.hashSync(senha,10)
         
-        const usuario = new Usuario({
+        const usuario = new User({
             nome:nome,
             email:email,
             senha:senhaHash
@@ -52,9 +52,9 @@ class usuarioController
     static async login(req,res){
 
         const {email,senha} = req.body
-        validarUsuarioLogin(req,res,email,senha)
+        validateUserLogin(req,res,email,senha)
 
-        const usuario = await Usuario.findOne({email})
+        const usuario = await User.findOne({email})
 
         if(!usuario){
             req.session.message = { type:"danger", message:"E-mail não foi encontrado"}
@@ -92,20 +92,20 @@ class usuarioController
         const uid = req.session.usuario
 
         if(!uid){
-            res.render("erros/httpErros",{code:401})
+            res.render("errors/httpErrors",{code:401})
             return
         } 
 
-        const usuario = await Usuario.findById(uid)
+        const usuario = await User.findById(uid)
 
         if(uid !== usuario.id){
-            res.render("erros/httpErros",{code:401})
+            res.render("errors/httpErrors",{code:401})
             return
         }
 
-        await Tarefa.deleteMany({"usuario._id": ObjectId(usuario.id)}) //deleta todas as tarefas do usuario logado
+        await Task.deleteMany({"usuario._id": ObjectId(usuario.id)}) //deleta todas as tarefas do usuario logado
 
-        await Usuario.findByIdAndDelete(usuario.id) //deleta a conta do usuario que estava logado
+        await User.findByIdAndDelete(usuario.id) //deleta a conta do usuario que estava logado
 
         res.redirect("/usuarios/login")
     }

@@ -75,7 +75,7 @@ app.get("/",(req,res,next)=>{
 
 
 app.use(function(req, res, next) {
-  res.render("erros/httpErros",{code:404})
+  res.render("errors/httpErrors",{code:404})
   return
 });
 

@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose")
 
-const Tarefa = mongoose.model(
+const Task = mongoose.model(
     "Tarefa",
     new mongoose.Schema({
         titulo:{type:String,required:true},
@@ -11,4 +11,4 @@ const Tarefa = mongoose.model(
     })
 )
 
-module.exports = Tarefa
+module.exports = Task
