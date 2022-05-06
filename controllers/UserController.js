@@ -24,9 +24,9 @@ class UserController
             return
         }
 
-        let usuarioEmail = await User.findOne({email})
+        let userEmail = await User.findOne({email})
 
-        if(usuarioEmail){
+        if(userEmail){
             req.flash("error","E-mail já cadastrado")
             res.redirect("/usuarios/cadastro")
         }
@@ -34,13 +34,13 @@ class UserController
         //fazer um hash da senha
         const senhaHash = bcrypt.hashSync(senha,10)
         
-        const usuario = new User({
+        const userObj = new User({
             nome:nome,
             email:email,
             senha:senhaHash
         })
 
-        await usuario.save()
+        await userObj.save()
         
         req.session.message = {type:"success", message:"Sua conta foi criada, faça o login para acessa-lá"}
 
