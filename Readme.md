@@ -19,7 +19,7 @@ Ferramentas que estão sendo utilizadas para a construção do sistema:
 - [x] Cadastro de usuários
 - [x] Login de usuário 
 - [x] Logout de usuário
-- [x] Remoção de usuário
+- [x] Deletar usuário
 
 ### Features de Tarefas 
 - [x] Cadastro de Tarefas
