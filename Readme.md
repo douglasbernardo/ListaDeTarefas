@@ -51,6 +51,7 @@ Para a instalação:
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
 `SECRET_SESSION`
+`URI_MONGO`
 
 ``
 
